@@ -41,9 +41,12 @@ export default function UploadZone() {
 
   const currentDocs = mounted ? documents : [];
 
-  // Generate unique ID per requirements
+  // Generate clean unique ID
   const generateId = (): string => {
-    return Date.now().toString(36) + Math.random().toString(36).substr(2);
+    if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+      return crypto.randomUUID();
+    }
+    return `doc-${Date.now()}-${Math.floor(Math.random() * 100000)}`;
   };
 
   // Process a single file
@@ -266,7 +269,7 @@ Photosynthesis is the reverse energy-harnessing process occurring in chloroplast
               });
               setSuccessMessage('Loaded Biology sample notes! You can now test Chat, Flashcards, Quiz & Mind Map.');
             }}
-            className="px-3 py-1.5 rounded-lg text-xs font-medium glass-card border border-purple-500/30 text-purple-200 hover:bg-purple-500/20 hover:text-white transition-all focus-visible:ring-2 focus-visible:ring-purple-500"
+            className="min-h-[44px] px-3.5 py-2 rounded-lg text-xs font-medium glass-card border border-purple-500/30 text-purple-200 hover:bg-purple-500/20 hover:text-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 cursor-pointer active:scale-95"
           >
             Load Biology Notes (Sample)
           </button>
@@ -291,7 +294,7 @@ Data structures:
               });
               setSuccessMessage('Loaded Computer Science sample notes! Try taking a quiz or generating a mind map.');
             }}
-            className="px-3 py-1.5 rounded-lg text-xs font-medium glass-card border border-indigo-500/30 text-indigo-200 hover:bg-indigo-500/20 hover:text-white transition-all focus-visible:ring-2 focus-visible:ring-indigo-500"
+            className="min-h-[44px] px-3.5 py-2 rounded-lg text-xs font-medium glass-card border border-indigo-500/30 text-indigo-200 hover:bg-indigo-500/20 hover:text-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 cursor-pointer active:scale-95"
           >
             Load CS Algorithms (Sample)
           </button>
@@ -354,11 +357,13 @@ Data structures:
       {/* Main Upload / Paste Box */}
       <div className="glass-card overflow-hidden">
         {/* Tab switchers */}
-        <div className="flex items-center border-b border-slate-700/60 bg-slate-900/60 p-2 sm:p-3 gap-2">
+        <div className="flex items-center border-b border-slate-700/60 bg-slate-900/60 p-2 sm:p-3 gap-2" role="tablist">
           <button
             type="button"
+            role="tab"
+            aria-selected={activeTab === 'upload'}
             onClick={() => setActiveTab('upload')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+            className={`min-h-[44px] flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-95 ${
               activeTab === 'upload'
                 ? 'bg-purple-600/30 text-purple-200 border border-purple-500/40 shadow-sm'
                 : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
@@ -369,8 +374,10 @@ Data structures:
           </button>
           <button
             type="button"
+            role="tab"
+            aria-selected={activeTab === 'paste'}
             onClick={() => setActiveTab('paste')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+            className={`min-h-[44px] flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-95 ${
               activeTab === 'paste'
                 ? 'bg-purple-600/30 text-purple-200 border border-purple-500/40 shadow-sm'
                 : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
@@ -655,7 +662,7 @@ Data structures:
                         <button
                           type="button"
                           onClick={() => removeDocument(doc.id)}
-                          className="p-2 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all shrink-0"
+                          className="min-h-[44px] min-w-[44px] p-2 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all shrink-0 cursor-pointer flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 active:scale-95"
                           title="Remove document"
                           aria-label={`Delete ${doc.name}`}
                         >
@@ -679,7 +686,7 @@ Data structures:
                       <button
                         type="button"
                         onClick={() => setActiveView('chat')}
-                        className="text-purple-400 hover:text-purple-300 font-medium flex items-center gap-1 transition-colors group/btn"
+                        className="min-h-[44px] text-purple-400 hover:text-purple-300 font-medium flex items-center gap-1 transition-colors group/btn cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 px-2 rounded-lg"
                       >
                         <span>Study This</span>
                         <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5" />

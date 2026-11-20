@@ -249,7 +249,7 @@ export default function FlashCards() {
               onClick={handleResetSession}
               disabled={isLoading}
               title="Restart session from first card"
-              className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 transition-all shadow-sm"
+              className="min-h-[44px] flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 transition-all shadow-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-95"
             >
               <RotateCcw className="w-4 h-4 text-purple-400" />
               <span>Restart</span>
@@ -260,7 +260,7 @@ export default function FlashCards() {
             type="button"
             onClick={handleGenerateFlashcards}
             disabled={isLoading || (!hasDocuments && totalCards === 0)}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-purple-600/25 active:scale-95"
+            className="min-h-[44px] flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-purple-600/25 active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
           >
             {isLoading ? (
               <>
@@ -496,7 +496,7 @@ export default function FlashCards() {
               type="button"
               onClick={handlePrev}
               disabled={currentIndex === 0}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-medium text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 disabled:opacity-40 disabled:cursor-not-allowed border border-slate-700/60 transition-all active:scale-95"
+              className="w-full sm:w-auto min-h-[44px] flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 disabled:opacity-40 disabled:cursor-not-allowed border border-slate-700/60 transition-all active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
               aria-label="Previous flashcard"
             >
               <ChevronLeft className="w-4 h-4 text-purple-400" />
@@ -514,7 +514,7 @@ export default function FlashCards() {
               <button
                 type="button"
                 onClick={() => toggleFlashcardMastered(currentCard.id)}
-                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold border transition-all active:scale-95 ${
+                className={`min-h-[44px] flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold border transition-all active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 ${
                   currentCard.mastered
                     ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 hover:bg-emerald-500/30 shadow-md shadow-emerald-950/20'
                     : 'bg-slate-800/80 text-slate-300 border-slate-700/60 hover:bg-slate-700/70 hover:text-white'
@@ -534,7 +534,7 @@ export default function FlashCards() {
               type="button"
               onClick={handleNext}
               disabled={currentIndex === totalCards - 1}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-medium text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 disabled:opacity-40 disabled:cursor-not-allowed border border-slate-700/60 transition-all active:scale-95"
+              className="w-full sm:w-auto min-h-[44px] flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 disabled:opacity-40 disabled:cursor-not-allowed border border-slate-700/60 transition-all active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
               aria-label="Next flashcard"
             >
               <span>Next</span>

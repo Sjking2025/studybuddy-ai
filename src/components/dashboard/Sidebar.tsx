@@ -100,7 +100,8 @@ export default function Sidebar({ onNavigate }: SidebarProps) {
                 type="button"
                 whileTap={{ scale: 0.98 }}
                 onClick={() => handleSelectView(item.id)}
-                className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm transition-all duration-200 text-left group ${
+                aria-current={isActive ? 'page' : undefined}
+                className={`w-full min-h-[44px] flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm transition-all duration-200 text-left cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 ${
                   isActive
                     ? 'bg-gradient-to-r from-purple-600/20 to-indigo-600/20 border-l-4 border-purple-500 text-white font-medium shadow-sm'
                     : 'border-l-4 border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
@@ -163,7 +164,7 @@ export default function Sidebar({ onNavigate }: SidebarProps) {
         <Link
           href="/"
           onClick={onNavigate}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all duration-200 group"
+          className="min-h-[44px] flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all duration-200 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4 text-slate-400 group-hover:text-purple-400 group-hover:-translate-x-1 transition-all duration-200 shrink-0" />
           <span>Back to Home</span>

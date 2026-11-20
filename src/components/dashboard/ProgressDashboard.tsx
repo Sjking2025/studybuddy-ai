@@ -525,7 +525,7 @@ export default function ProgressDashboard() {
                   </p>
                   <button
                     onClick={() => setActiveView('quiz')}
-                    className="px-4 py-2 text-xs font-semibold rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-500 hover:to-indigo-500 shadow-md hover:shadow-purple-500/20 transition-all flex items-center gap-1.5"
+                    className="min-h-[44px] px-5 py-2.5 text-xs font-semibold rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-500 hover:to-indigo-500 shadow-md hover:shadow-purple-500/20 transition-all flex items-center gap-1.5 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-95"
                   >
                     Take a Quiz Now
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -968,7 +968,7 @@ export default function ProgressDashboard() {
             </p>
             <button
               onClick={() => setActiveView('quiz')}
-              className="px-4 py-2 text-xs font-semibold rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-500 hover:to-indigo-500 shadow-md transition-all flex items-center gap-1.5"
+              className="min-h-[44px] px-5 py-2.5 text-xs font-semibold rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-500 hover:to-indigo-500 shadow-md transition-all flex items-center gap-1.5 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-95"
             >
               Start Your First Quiz
               <ArrowRight className="w-3.5 h-3.5" />

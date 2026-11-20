@@ -289,7 +289,7 @@ export default function ChatInterface() {
             type="button"
             onClick={handleClearChat}
             disabled={currentMessages.length === 0 || isStreaming}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-red-300 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+            className="min-h-[44px] flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-red-300 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 active:scale-95"
             title="Clear chat history"
             aria-label="Clear chat history"
           >
@@ -390,7 +390,7 @@ export default function ChatInterface() {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => handleSendMessage(starter.prompt)}
-                      className="p-3.5 rounded-xl border border-slate-700/50 bg-slate-800/40 hover:bg-slate-800/80 hover:border-purple-500/40 transition-all duration-200 group flex flex-col gap-1.5 cursor-pointer text-left"
+                      className="p-3.5 rounded-xl border border-slate-700/50 bg-slate-800/40 hover:bg-slate-800/80 hover:border-purple-500/40 transition-all duration-200 group flex flex-col gap-1.5 cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
                     >
                       <div className="flex items-center gap-2 text-xs font-semibold text-purple-300 group-hover:text-purple-200">
                         <Icon className="w-4 h-4 text-purple-400 shrink-0" />

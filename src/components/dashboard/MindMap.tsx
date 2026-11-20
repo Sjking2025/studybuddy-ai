@@ -376,7 +376,7 @@ export default function MindMap() {
             <button
               onClick={handleGenerateMindMap}
               disabled={isLoading || !hasDocuments}
-              className={`inline-flex items-center gap-2.5 px-6 py-3 rounded-xl font-medium text-white transition-all duration-300 shadow-lg ${
+              className={`min-h-[44px] inline-flex items-center gap-2.5 px-6 py-3 rounded-xl font-medium text-white transition-all duration-300 shadow-lg cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 ${
                 isLoading || !hasDocuments
                   ? 'bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700/40'
                   : 'bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.02] active:scale-[0.98]'
@@ -430,7 +430,7 @@ export default function MindMap() {
               <button
                 type="button"
                 onClick={() => setForceExpandAll((prev) => (prev === true ? false : true))}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800/70 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors border border-slate-700/50"
+                className="min-h-[44px] inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-medium bg-slate-800/70 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors border border-slate-700/50 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-95"
               >
                 {forceExpandAll === false ? (
                   <>
@@ -448,7 +448,7 @@ export default function MindMap() {
               <button
                 type="button"
                 onClick={handleExportJSON}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800/70 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors border border-slate-700/50"
+                className="min-h-[44px] inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-medium bg-slate-800/70 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors border border-slate-700/50 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-95"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Export JSON</span>

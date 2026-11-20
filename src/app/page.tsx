@@ -321,7 +321,7 @@ export default function LandingPage() {
                 </div>
                 <div className="flex items-center gap-2 text-xs font-semibold px-3 py-1 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  Gemini Flash 2.0 Connected
+                  Gemini Flash AI Active
                 </div>
               </div>
 

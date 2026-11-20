@@ -304,11 +304,13 @@ export default function StudyPlan() {
           </div>
 
           {/* Filter Pills */}
-          <div className="flex items-center gap-2 pt-2 overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-2 pt-2 overflow-x-auto no-scrollbar" role="tablist">
             <button
               type="button"
+              role="tab"
+              aria-selected={currentFilter === 'all'}
               onClick={() => setCurrentFilter('all')}
-              className={`px-3 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+              className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-95 ${
                 currentFilter === 'all'
                   ? 'bg-purple-600 text-white shadow-sm shadow-purple-600/30'
                   : 'bg-slate-800/40 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
@@ -318,8 +320,10 @@ export default function StudyPlan() {
             </button>
             <button
               type="button"
+              role="tab"
+              aria-selected={currentFilter === 'todo'}
               onClick={() => setCurrentFilter('todo')}
-              className={`px-3 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+              className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-95 ${
                 currentFilter === 'todo'
                   ? 'bg-purple-600 text-white shadow-sm shadow-purple-600/30'
                   : 'bg-slate-800/40 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
@@ -329,8 +333,10 @@ export default function StudyPlan() {
             </button>
             <button
               type="button"
+              role="tab"
+              aria-selected={currentFilter === 'completed'}
               onClick={() => setCurrentFilter('completed')}
-              className={`px-3 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+              className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-95 ${
                 currentFilter === 'completed'
                   ? 'bg-purple-600 text-white shadow-sm shadow-purple-600/30'
                   : 'bg-slate-800/40 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
@@ -340,8 +346,10 @@ export default function StudyPlan() {
             </button>
             <button
               type="button"
+              role="tab"
+              aria-selected={currentFilter === 'high-priority'}
               onClick={() => setCurrentFilter('high-priority')}
-              className={`px-3 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+              className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-95 ${
                 currentFilter === 'high-priority'
                   ? 'bg-purple-600 text-white shadow-sm shadow-purple-600/30'
                   : 'bg-slate-800/40 text-slate-400 hover:text-slate-200 hover:bg-slate-800'

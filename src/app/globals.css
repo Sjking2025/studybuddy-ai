@@ -82,3 +82,22 @@ body {
 .markdown-content table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
 .markdown-content th, .markdown-content td { border: 1px solid rgba(100, 100, 180, 0.2); padding: 0.5rem 0.75rem; text-align: left; }
 .markdown-content th { background: rgba(139, 92, 246, 0.1); font-weight: 600; }
+
+/* Accessible Touch Targets & Interaction */
+.min-touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Reduced Motion Preference Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

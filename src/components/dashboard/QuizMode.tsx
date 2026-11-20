@@ -676,7 +676,7 @@ export default function QuizMode() {
                     type="button"
                     disabled={hasAnswered}
                     onClick={() => handleSelectOption(optionIdx)}
-                    className={`w-full p-4 rounded-xl border text-left flex items-center justify-between gap-4 transition-all duration-200 group cursor-pointer ${buttonStyle}`}
+                    className={`w-full min-h-[52px] p-4 rounded-xl border text-left flex items-center justify-between gap-4 transition-all duration-200 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-[0.99] ${buttonStyle}`}
                   >
                     <div className="flex items-center gap-3.5 min-w-0">
                       <span
