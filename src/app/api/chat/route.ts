@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI, Content } from '@google/generative-ai';
 import { ChatRequestSchema } from '@/lib/schemas';
 import { checkRateLimit } from '@/lib/rate-limit';
+import { FREE_TIER_MODELS } from '@/lib/gemini';
 
 interface ChatHistoryMessage {
   role: string;
@@ -87,42 +88,47 @@ export async function POST(req: NextRequest) {
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (apiKey) {
-      try {
-        const genAI = new GoogleGenerativeAI(apiKey);
-        const systemPrompt = buildSystemPrompt(context);
-        const model = genAI.getGenerativeModel({
-          model: 'gemini-3.8-flash',
-          systemInstruction: systemPrompt,
-        });
+      const genAI = new GoogleGenerativeAI(apiKey);
+      const systemPrompt = buildSystemPrompt(context);
+      const geminiHistory = formatChatHistory(history);
 
-        const geminiHistory = formatChatHistory(history);
-        const chat = model.startChat({ history: geminiHistory });
-        const result = await chat.sendMessageStream(message.trim());
+      // Iterate through free tier model pool (gemini-3.6-flash, gemini-3.5-flash-lite, etc.)
+      for (const modelName of FREE_TIER_MODELS) {
+        try {
+          const model = genAI.getGenerativeModel({
+            model: modelName,
+            systemInstruction: systemPrompt,
+          });
 
-        const encoder = new TextEncoder();
-        const stream = new ReadableStream({
-          async start(controller) {
-            try {
-              for await (const chunk of result.stream) {
-                const text = chunk.text();
-                if (text) controller.enqueue(encoder.encode(text));
+          const chat = model.startChat({ history: geminiHistory });
+          const result = await chat.sendMessageStream(message.trim());
+
+          const encoder = new TextEncoder();
+          const stream = new ReadableStream({
+            async start(controller) {
+              try {
+                for await (const chunk of result.stream) {
+                  const text = chunk.text();
+                  if (text) controller.enqueue(encoder.encode(text));
+                }
+                controller.close();
+              } catch (streamErr) {
+                controller.error(streamErr);
               }
-              controller.close();
-            } catch (streamErr) {
-              controller.error(streamErr);
-            }
-          },
-        });
+            },
+          });
 
-        return new Response(stream, {
-          headers: {
-            'Content-Type': 'text/plain; charset=utf-8',
-            'Cache-Control': 'no-cache, no-transform',
-            'X-Content-Type-Options': 'nosniff',
-          },
-        });
-      } catch (geminiErr) {
-        console.warn('Gemini chat streaming unavailable, falling back to resilient tutor:', (geminiErr as Error).message);
+          return new Response(stream, {
+            headers: {
+              'Content-Type': 'text/plain; charset=utf-8',
+              'Cache-Control': 'no-cache, no-transform',
+              'X-Content-Type-Options': 'nosniff',
+              'X-Model-Used': modelName,
+            },
+          });
+        } catch (modelErr) {
+          console.warn(`Streaming failed with ${modelName}, trying next free model:`, (modelErr as Error).message);
+        }
       }
     }
 

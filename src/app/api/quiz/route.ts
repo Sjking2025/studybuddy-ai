@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import { QuizQuestion } from '@/lib/types';
 import { QuizRequestSchema } from '@/lib/schemas';
 import { checkRateLimit } from '@/lib/rate-limit';
-import { extractHeuristicQuiz } from '@/lib/gemini';
+import { generateWithFreeTierPool, extractHeuristicQuiz } from '@/lib/gemini';
 
 function stripMarkdownCodeBlocks(raw: string): string {
   let cleaned = raw.trim();
@@ -64,19 +63,12 @@ Material:
 ${content}
 """`;
 
-        const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({
-          model: 'gemini-3.8-flash',
-          generationConfig: { responseMimeType: 'application/json', temperature: 0.3 },
+        const { text, modelUsed } = await generateWithFreeTierPool(prompt, {
+          jsonMode: true,
+          temperature: 0.3,
         });
 
-        const generatePromise = model.generateContent(prompt);
-        const timeoutPromise = new Promise<never>((_, reject) =>
-          setTimeout(() => reject(new Error('AI timeout')), 6000)
-        );
-
-        const response = await Promise.race([generatePromise, timeoutPromise]);
-        const cleanJson = stripMarkdownCodeBlocks(response.response.text());
+        const cleanJson = stripMarkdownCodeBlocks(text);
         const parsed = JSON.parse(cleanJson);
 
         if (Array.isArray(parsed) && parsed.length > 0) {
@@ -92,15 +84,15 @@ ${content}
             explanation: String(item.explanation || 'Directly derived from notes.').trim(),
             topic: String(item.topic || 'Core Concept').trim(),
           }));
-          return NextResponse.json({ questions });
+          return NextResponse.json({ questions, modelUsed });
         }
       } catch (aiErr) {
-        console.warn('Gemini API unavailable or timed out; activating resilient fallback:', (aiErr as Error).message);
+        console.warn('Free-tier AI models temporarily busy; using resilient fallback:', (aiErr as Error).message);
       }
     }
 
     const fallbackQuestions = extractHeuristicQuiz(content, count);
-    return NextResponse.json({ questions: fallbackQuestions });
+    return NextResponse.json({ questions: fallbackQuestions, modelUsed: 'local-heuristic-engine' });
   } catch (error: unknown) {
     console.error('Quiz API error:', error);
     return NextResponse.json({ error: 'Failed to generate quiz' }, { status: 500 });

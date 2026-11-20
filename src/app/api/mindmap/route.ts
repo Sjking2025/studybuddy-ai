@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import { MindMapNode } from '@/lib/types';
 import { MindMapRequestSchema } from '@/lib/schemas';
 import { checkRateLimit } from '@/lib/rate-limit';
-import { extractHeuristicMindMap } from '@/lib/gemini';
+import { generateWithFreeTierPool, extractHeuristicMindMap } from '@/lib/gemini';
 
 function stripMarkdownCodeBlocks(raw: string): string {
   let cleaned = raw.trim();
@@ -68,31 +67,24 @@ Material:
 ${content}
 """`;
 
-        const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({
-          model: 'gemini-3.8-flash',
-          generationConfig: { responseMimeType: 'application/json', temperature: 0.2 },
+        const { text, modelUsed } = await generateWithFreeTierPool(prompt, {
+          jsonMode: true,
+          temperature: 0.2,
         });
 
-        const generatePromise = model.generateContent(prompt);
-        const timeoutPromise = new Promise<never>((_, reject) =>
-          setTimeout(() => reject(new Error('AI timeout')), 6000)
-        );
-
-        const response = await Promise.race([generatePromise, timeoutPromise]);
-        const cleanJson = stripMarkdownCodeBlocks(response.response.text());
+        const cleanJson = stripMarkdownCodeBlocks(text);
         const parsed = JSON.parse(cleanJson);
 
         if (parsed && typeof parsed === 'object' && parsed.label) {
-          return NextResponse.json({ mindmap: parsed });
+          return NextResponse.json({ mindmap: parsed, modelUsed });
         }
       } catch (aiErr) {
-        console.warn('Gemini API unavailable or timed out; activating resilient fallback:', (aiErr as Error).message);
+        console.warn('Free-tier AI models temporarily busy; using resilient fallback:', (aiErr as Error).message);
       }
     }
 
     const fallbackMindMap = extractHeuristicMindMap(content);
-    return NextResponse.json({ mindmap: fallbackMindMap });
+    return NextResponse.json({ mindmap: fallbackMindMap, modelUsed: 'local-heuristic-engine' });
   } catch (error: unknown) {
     console.error('MindMap API error:', error);
     return NextResponse.json({ error: 'Failed to generate mind map' }, { status: 500 });

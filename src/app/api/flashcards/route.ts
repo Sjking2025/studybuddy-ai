@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Flashcard } from '@/lib/types';
 import { FlashcardsRequestSchema } from '@/lib/schemas';
 import { checkRateLimit } from '@/lib/rate-limit';
-import { extractHeuristicFlashcards } from '@/lib/gemini';
+import { generateWithFreeTierPool, extractHeuristicFlashcards } from '@/lib/gemini';
 
 function stripMarkdownCodeBlocks(raw: string): string {
   let cleaned = raw.trim();
@@ -53,7 +52,6 @@ export async function POST(req: NextRequest) {
     const { content, count } = validation.data;
     const apiKey = process.env.GEMINI_API_KEY;
 
-    // Resilient Strategy: Try Google Gemini API with timeout, fall back to heuristic extraction on 503/timeout
     if (apiKey) {
       try {
         const prompt = `Generate ${count} active-recall flashcards from this study material in valid JSON format:
@@ -65,20 +63,12 @@ Material:
 ${content}
 """`;
 
-        const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({
-          model: 'gemini-3.8-flash',
-          generationConfig: { responseMimeType: 'application/json', temperature: 0.2 },
+        const { text, modelUsed } = await generateWithFreeTierPool(prompt, {
+          jsonMode: true,
+          temperature: 0.2,
         });
 
-        // 6 second timeout race
-        const generatePromise = model.generateContent(prompt);
-        const timeoutPromise = new Promise<never>((_, reject) =>
-          setTimeout(() => reject(new Error('AI timeout')), 6000)
-        );
-
-        const response = await Promise.race([generatePromise, timeoutPromise]);
-        const cleanJson = stripMarkdownCodeBlocks(response.response.text());
+        const cleanJson = stripMarkdownCodeBlocks(text);
         const parsed = JSON.parse(cleanJson);
 
         if (Array.isArray(parsed) && parsed.length > 0) {
@@ -89,16 +79,15 @@ ${content}
             difficulty: ['easy', 'medium', 'hard'].includes(item.difficulty) ? item.difficulty : 'medium',
             mastered: false,
           }));
-          return NextResponse.json({ flashcards });
+          return NextResponse.json({ flashcards, modelUsed });
         }
       } catch (aiErr) {
-        console.warn('Gemini API unavailable or timed out; activating resilient fallback:', (aiErr as Error).message);
+        console.warn('Free-tier AI models temporarily busy; using resilient fallback:', (aiErr as Error).message);
       }
     }
 
-    // High-yield fallback: guaranteed 100% success from uploaded content
     const fallbackCards = extractHeuristicFlashcards(content, count);
-    return NextResponse.json({ flashcards: fallbackCards });
+    return NextResponse.json({ flashcards: fallbackCards, modelUsed: 'local-heuristic-engine' });
   } catch (error: unknown) {
     console.error('Flashcards API error:', error);
     return NextResponse.json({ error: 'Failed to generate flashcards' }, { status: 500 });

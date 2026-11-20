@@ -1,15 +1,27 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 /**
- * Resilient AI Engine following Senior Architect Secure-by-Design principles:
- * 1. Strict outbound timeouts (8s) via AbortSignal to prevent hung sockets
- * 2. Multi-tier model fallback: gemini-3.8-flash -> fallback heuristic engine
- * 3. Graceful degradation: If upstream 503/high-demand or offline, generates
- *    pedagogically sound educational assets deterministically from content.
+ * Free Tier Model Pool Configuration
+ * Optimized order based on speed ("very_fast"), reliability, and free quotas:
+ * 1. gemini-3.1-flash-lite (Speed: very_fast, Free: true)
+ * 2. gemini-3.5-flash-lite (Speed: very_fast, Free: true)
+ * 3. gemini-3.6-flash (Speed: fast, Quality: high, Free: true)
+ * 4. gemini-3.8-flash (Speed: fast, Quality: very_high, Free: true)
+ * 5. gemma-4-31b-it (Speed: fast, Reasoning: true, Free: true)
+ * 6. gemma-4-26b-a4b-it (Speed: very_fast, Free: true)
  */
+export const FREE_TIER_MODELS = [
+  'gemini-3.1-flash-lite',
+  'gemini-3.5-flash-lite',
+  'gemini-3.6-flash',
+  'gemini-3.8-flash',
+  'gemma-4-31b-it',
+  'gemma-4-26b-a4b-it',
+] as const;
 
-const API_TIMEOUT_MS = 8000;
-const PRIMARY_MODEL = 'gemini-3.8-flash';
+export const DEFAULT_MODEL = 'gemini-3.1-flash-lite';
+
+const API_TIMEOUT_MS = 6000;
 
 function getGenAI(): GoogleGenerativeAI | null {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -18,30 +30,51 @@ function getGenAI(): GoogleGenerativeAI | null {
 }
 
 /**
- * Executes a Gemini prompt with a hard timeout.
+ * Executes prompt across the free tier models with automatic failover.
  */
-export async function generateWithTimeout(
+export async function generateWithFreeTierPool(
   prompt: string,
-  systemInstruction?: string
-): Promise<string> {
+  options?: {
+    systemInstruction?: string;
+    jsonMode?: boolean;
+    temperature?: number;
+  }
+): Promise<{ text: string; modelUsed: string }> {
   const genAI = getGenAI();
   if (!genAI) {
     throw new Error('GEMINI_API_KEY is not configured');
   }
 
-  const model = genAI.getGenerativeModel({
-    model: PRIMARY_MODEL,
-    systemInstruction,
-  });
+  let lastError: Error | null = null;
 
-  // Race generateContent against an explicit timeout
-  const generatePromise = model.generateContent(prompt);
-  const timeoutPromise = new Promise<never>((_, reject) =>
-    setTimeout(() => reject(new Error('AI generation timed out after 8s')), API_TIMEOUT_MS)
-  );
+  for (const modelName of FREE_TIER_MODELS) {
+    try {
+      const model = genAI.getGenerativeModel({
+        model: modelName,
+        systemInstruction: options?.systemInstruction,
+        generationConfig: {
+          responseMimeType: options?.jsonMode ? 'application/json' : undefined,
+          temperature: options?.temperature ?? 0.2,
+        },
+      });
 
-  const result = await Promise.race([generatePromise, timeoutPromise]);
-  return result.response.text();
+      const generatePromise = model.generateContent(prompt);
+      const timeoutPromise = new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error(`Timeout with ${modelName}`)), API_TIMEOUT_MS)
+      );
+
+      const result = await Promise.race([generatePromise, timeoutPromise]);
+      const text = result.response.text();
+      if (text && text.trim().length > 0) {
+        return { text: text.trim(), modelUsed: modelName };
+      }
+    } catch (err: unknown) {
+      console.warn(`Model ${modelName} failed/busy, trying next free-tier model:`, (err as Error).message);
+      lastError = err as Error;
+    }
+  }
+
+  throw lastError || new Error('All free tier models are currently busy');
 }
 
 /**
@@ -58,7 +91,6 @@ export function extractHeuristicFlashcards(content: string, count = 8) {
 
   for (let i = 0; i < Math.min(sentences.length, count); i++) {
     const s = sentences[i];
-    // Check for definition patterns: "X is Y", "X includes Y", "X refers to Y"
     const match = s.match(/^([^,.]+?)\s+(?:is|are|refers to|includes|means)\s+(.+)$/i);
     if (match) {
       flashcards.push({
@@ -69,7 +101,6 @@ export function extractHeuristicFlashcards(content: string, count = 8) {
         mastered: false,
       });
     } else {
-      // General question extraction
       const words = s.split(' ');
       const keyPhrase = words.slice(0, Math.min(4, words.length)).join(' ');
       flashcards.push({
@@ -82,7 +113,6 @@ export function extractHeuristicFlashcards(content: string, count = 8) {
     }
   }
 
-  // Fallback default if content is too short
   if (flashcards.length === 0) {
     flashcards.push({
       id: `fc-h-default-1`,
