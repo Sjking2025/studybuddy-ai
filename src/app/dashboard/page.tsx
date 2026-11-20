@@ -73,15 +73,15 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-[#0a0a1a] text-slate-100 antialiased selection:bg-purple-500/30 selection:text-purple-200">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-[#090a0f] text-slate-100 antialiased selection:bg-blue-500/30 selection:text-blue-200">
       {/* Mobile Top Bar */}
-      <header className="lg:hidden sticky top-0 z-30 flex items-center justify-between border-b border-indigo-900/30 bg-[#0a0a1a]/85 px-4 py-3 backdrop-blur-xl">
+      <header className="lg:hidden sticky top-0 z-30 flex items-center justify-between border-b border-white/[0.08] bg-[#090a0f]/90 px-4 py-3 backdrop-blur-xl">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 shadow-md shadow-purple-500/20">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 shadow-md shadow-blue-600/20">
             <Brain className="h-5 w-5 text-white" />
           </div>
-          <span className="text-lg font-bold tracking-tight gradient-text">
-            StudyBuddy AI
+          <span className="text-lg font-bold tracking-tight text-white flex items-center gap-1">
+            StudyBuddy <span className="text-blue-400">AI</span>
           </span>
         </div>
 
@@ -90,7 +90,7 @@ export default function DashboardPage() {
           type="button"
           aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
           aria-expanded={mobileMenuOpen}
-          className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg p-2 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-95"
+          className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg p-2 text-slate-400 hover:bg-white/[0.05] hover:text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 active:scale-95"
         >
           {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>

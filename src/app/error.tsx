@@ -16,8 +16,8 @@ export default function ErrorBoundary({
   }, [error]);
 
   return (
-    <div className="min-h-screen bg-[#0a0a1a] flex items-center justify-center p-4">
-      <div className="glass-card max-w-md w-full p-8 border border-rose-500/30 text-center shadow-[0_0_30px_rgba(244,63,94,0.15)]">
+    <div className="min-h-screen bg-[#090A0F] flex items-center justify-center p-4">
+      <div className="studio-card max-w-md w-full p-8 border border-rose-500/30 text-center shadow-[0_0_30px_rgba(244,63,94,0.1)]">
         <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400">
           <AlertTriangle className="w-8 h-8" />
         </div>
@@ -28,14 +28,14 @@ export default function ErrorBoundary({
         <div className="flex items-center justify-center gap-3">
           <button
             onClick={() => reset()}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-white bg-purple-600 hover:bg-purple-500 transition-all shadow-lg shadow-purple-600/30"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-white bg-blue-600 hover:bg-blue-500 transition-all shadow-md shadow-blue-600/20 active:scale-95 cursor-pointer"
           >
             <RotateCcw className="w-4 h-4" />
             <span>Try Again</span>
           </button>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-slate-300 hover:text-white glass-card border border-slate-700/50 hover:border-purple-500/30 transition-all"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-slate-300 hover:text-white studio-card border border-white/[0.08] hover:border-blue-500/30 transition-all active:scale-95"
           >
             <Home className="w-4 h-4" />
             <span>Home</span>

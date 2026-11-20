@@ -176,15 +176,15 @@ export default function StudyPlan() {
   return (
     <div className="w-full max-w-5xl mx-auto space-y-6 pb-12">
       {/* Top Header Card */}
-      <div className="glass-card p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 border border-slate-700/40 shadow-xl">
+      <div className="studio-card p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 border border-white/[0.08] shadow-xl">
         <div className="space-y-2">
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-purple-500/25 shrink-0">
-              <Calendar className="w-6 h-6 text-white" />
+            <div className="w-11 h-11 rounded-xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center shadow-md shadow-blue-500/10 shrink-0">
+              <Calendar className="w-6 h-6 text-blue-400" />
             </div>
             <div>
               <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">
-                <span className="gradient-text">Personalized</span> Study Plan
+                <span className="brand-title">Personalized</span> Study Plan
               </h1>
               <p className="text-xs md:text-sm text-slate-400">
                 AI-structured roadmap and milestone checklist built from your study materials
@@ -199,16 +199,16 @@ export default function StudyPlan() {
             type="button"
             onClick={handleGenerateStudyPlan}
             disabled={isGenerating}
-            className="w-full md:w-auto inline-flex items-center justify-center gap-2.5 px-5 py-3 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 active:scale-[0.98] shadow-lg shadow-purple-900/30 border border-purple-400/30 transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed disabled:active:scale-100"
+            className="w-full md:w-auto inline-flex items-center justify-center gap-2.5 px-5 py-3 rounded-xl font-semibold text-sm text-white bg-blue-600 hover:bg-blue-500 active:scale-[0.98] shadow-md shadow-blue-600/25 border border-blue-400/30 transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed disabled:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
           >
             {isGenerating ? (
               <>
-                <Loader2 className="w-4 h-4 animate-spin text-purple-200" />
+                <Loader2 className="w-4 h-4 animate-spin text-white" />
                 <span>Crafting Your Schedule...</span>
               </>
             ) : (
               <>
-                <Sparkles className="w-4 h-4 text-purple-200" />
+                <Sparkles className="w-4 h-4 text-blue-200" />
                 <span>{totalCount > 0 ? 'Regenerate Plan' : 'Generate Study Plan'}</span>
               </>
             )}
@@ -223,7 +223,7 @@ export default function StudyPlan() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="glass-card p-4 rounded-xl border border-rose-500/30 bg-rose-950/20 flex items-start gap-3.5 shadow-lg shadow-rose-950/30 text-rose-200"
+            className="studio-card p-4 rounded-xl border border-rose-500/30 bg-rose-950/20 flex items-start gap-3.5 shadow-lg text-rose-200"
           >
             <AlertCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
             <div className="flex-1 text-sm font-medium leading-relaxed">
@@ -242,7 +242,7 @@ export default function StudyPlan() {
 
       {/* Document Warning Notice when no documents uploaded */}
       {isMounted && documents.length === 0 && (
-        <div className="glass-card p-4 rounded-xl border border-amber-500/30 bg-amber-950/15 flex items-center justify-between gap-4 text-amber-200">
+        <div className="studio-card p-4 rounded-xl border border-amber-500/30 bg-amber-500/[0.06] flex items-center justify-between gap-4 text-amber-200">
           <div className="flex items-center gap-3">
             <AlertCircle className="w-5 h-5 text-amber-400 shrink-0" />
             <span className="text-xs md:text-sm font-medium">
@@ -261,14 +261,14 @@ export default function StudyPlan() {
 
       {/* Progress & Stats Bar (Shown when items exist) */}
       {totalCount > 0 && (
-        <div className="glass-card p-5 md:p-6 border border-slate-700/40 space-y-4 shadow-lg">
+        <div className="studio-card p-5 md:p-6 border border-white/[0.08] space-y-4 shadow-lg">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-400 font-mono">
                   Plan Progress
                 </span>
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-300 border border-blue-500/30 font-mono">
                   {progressPercentage}% Completed
                 </span>
               </div>
@@ -280,12 +280,12 @@ export default function StudyPlan() {
 
             {/* Quick Metrics Badges */}
             <div className="flex items-center gap-2 text-xs">
-              <div className="px-3 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700/50 text-slate-300 flex items-center gap-1.5">
+              <div className="px-3 py-1.5 rounded-lg bg-[#090A0F] border border-white/[0.08] text-slate-300 flex items-center gap-1.5 font-mono">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                 <span>{completedCount} Done</span>
               </div>
               {highPriorityCount > 0 && (
-                <div className="px-3 py-1.5 rounded-lg bg-rose-950/30 border border-rose-500/30 text-rose-300 flex items-center gap-1.5">
+                <div className="px-3 py-1.5 rounded-lg bg-rose-950/30 border border-rose-500/30 text-rose-300 flex items-center gap-1.5 font-mono">
                   <Flag className="w-3.5 h-3.5 text-rose-400" />
                   <span>{highPriorityCount} High Priority Remaining</span>
                 </div>
@@ -294,9 +294,9 @@ export default function StudyPlan() {
           </div>
 
           {/* Animated Progress Bar */}
-          <div className="relative w-full h-3 rounded-full bg-slate-900/80 p-0.5 border border-slate-700/50 overflow-hidden">
+          <div className="relative w-full h-3 rounded-full bg-[#090A0F] p-0.5 border border-white/[0.08] overflow-hidden">
             <motion.div
-              className="h-full bg-gradient-to-r from-purple-600 via-indigo-500 to-emerald-400 rounded-full shadow-sm shadow-purple-500/30"
+              className="h-full bg-gradient-to-r from-blue-600 via-indigo-500 to-emerald-400 rounded-full shadow-sm shadow-blue-500/30"
               initial={{ width: 0 }}
               animate={{ width: `${progressPercentage}%` }}
               transition={{ duration: 0.6, ease: 'easeOut' }}
@@ -310,10 +310,10 @@ export default function StudyPlan() {
               role="tab"
               aria-selected={currentFilter === 'all'}
               onClick={() => setCurrentFilter('all')}
-              className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-95 ${
+              className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 active:scale-95 ${
                 currentFilter === 'all'
-                  ? 'bg-purple-600 text-white shadow-sm shadow-purple-600/30'
-                  : 'bg-slate-800/40 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                  ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/30'
+                  : 'bg-[#161926] text-slate-400 hover:text-slate-200 hover:bg-[#1a1e2e] border border-white/[0.08]'
               }`}
             >
               All Tasks ({totalCount})
@@ -323,10 +323,10 @@ export default function StudyPlan() {
               role="tab"
               aria-selected={currentFilter === 'todo'}
               onClick={() => setCurrentFilter('todo')}
-              className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-95 ${
+              className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 active:scale-95 ${
                 currentFilter === 'todo'
-                  ? 'bg-purple-600 text-white shadow-sm shadow-purple-600/30'
-                  : 'bg-slate-800/40 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                  ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/30'
+                  : 'bg-[#161926] text-slate-400 hover:text-slate-200 hover:bg-[#1a1e2e] border border-white/[0.08]'
               }`}
             >
               To Do ({totalCount - completedCount})
@@ -336,10 +336,10 @@ export default function StudyPlan() {
               role="tab"
               aria-selected={currentFilter === 'completed'}
               onClick={() => setCurrentFilter('completed')}
-              className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-95 ${
+              className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 active:scale-95 ${
                 currentFilter === 'completed'
-                  ? 'bg-purple-600 text-white shadow-sm shadow-purple-600/30'
-                  : 'bg-slate-800/40 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                  ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/30'
+                  : 'bg-[#161926] text-slate-400 hover:text-slate-200 hover:bg-[#1a1e2e] border border-white/[0.08]'
               }`}
             >
               Completed ({completedCount})
@@ -349,10 +349,10 @@ export default function StudyPlan() {
               role="tab"
               aria-selected={currentFilter === 'high-priority'}
               onClick={() => setCurrentFilter('high-priority')}
-              className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-95 ${
+              className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 active:scale-95 ${
                 currentFilter === 'high-priority'
-                  ? 'bg-purple-600 text-white shadow-sm shadow-purple-600/30'
-                  : 'bg-slate-800/40 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                  ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/30'
+                  : 'bg-[#161926] text-slate-400 hover:text-slate-200 hover:bg-[#1a1e2e] border border-white/[0.08]'
               }`}
             >
               High Priority ({planItems.filter((i) => i.priority === 'high').length})
@@ -364,8 +364,8 @@ export default function StudyPlan() {
       {/* Main Checklist / Timeline Area */}
       {totalCount === 0 ? (
         /* Empty State */
-        <div className="glass-card p-10 md:p-14 text-center border border-slate-700/40 flex flex-col items-center justify-center space-y-4">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-purple-500/20 to-indigo-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 shadow-xl shadow-purple-500/10">
+        <div className="studio-card p-10 md:p-14 text-center border border-white/[0.08] flex flex-col items-center justify-center space-y-4">
+          <div className="w-16 h-16 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shadow-md">
             <Calendar className="w-8 h-8" />
           </div>
           <div className="max-w-md space-y-1.5">
@@ -380,16 +380,16 @@ export default function StudyPlan() {
               type="button"
               onClick={handleGenerateStudyPlan}
               disabled={isGenerating}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 active:scale-95 shadow-lg shadow-purple-900/40 border border-purple-400/30 transition-all cursor-pointer disabled:opacity-50"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-white bg-blue-600 hover:bg-blue-500 active:scale-95 shadow-md shadow-blue-600/25 border border-blue-400/30 transition-all cursor-pointer disabled:opacity-50"
             >
               {isGenerating ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin text-purple-200" />
+                  <Loader2 className="w-4 h-4 animate-spin text-white" />
                   <span>Generating Timeline...</span>
                 </>
               ) : (
                 <>
-                  <Sparkles className="w-4 h-4 text-purple-200" />
+                  <Sparkles className="w-4 h-4 text-blue-200" />
                   <span>Generate Study Plan</span>
                 </>
               )}
@@ -398,12 +398,12 @@ export default function StudyPlan() {
         </div>
       ) : filteredItems.length === 0 ? (
         /* No items match current filter */
-        <div className="glass-card p-8 text-center border border-slate-800 text-slate-400 space-y-2">
+        <div className="studio-card p-8 text-center border border-white/[0.08] text-slate-400 space-y-2">
           <p className="text-sm">No study plan items match the selected filter.</p>
           <button
             type="button"
             onClick={() => setCurrentFilter('all')}
-            className="text-xs text-purple-400 hover:text-purple-300 underline font-medium cursor-pointer"
+            className="text-xs text-blue-400 hover:text-blue-300 underline font-medium cursor-pointer"
           >
             Show All Tasks
           </button>
@@ -413,7 +413,7 @@ export default function StudyPlan() {
         <div className="relative pl-7 sm:pl-10">
           {/* Vertical Timeline Guide Line */}
           <div
-            className="absolute left-[15px] sm:left-[21px] top-6 bottom-6 w-0.5 bg-gradient-to-b from-purple-500/50 via-indigo-500/30 to-purple-500/10 -translate-x-1/2 pointer-events-none"
+            className="absolute left-[15px] sm:left-[21px] top-6 bottom-6 w-0.5 bg-gradient-to-b from-blue-500/50 via-indigo-500/30 to-blue-500/10 -translate-x-1/2 pointer-events-none"
             aria-hidden="true"
           />
 
@@ -437,7 +437,7 @@ export default function StudyPlan() {
                   <button
                     type="button"
                     onClick={() => toggleStudyPlanItem(item.id)}
-                    className="absolute -left-[27px] sm:-left-[33px] top-5 -translate-x-1/2 z-10 p-0.5 rounded-full bg-[#0a0a1a] transition-transform duration-200 hover:scale-115 focus:outline-none focus:ring-2 focus:ring-purple-500/50 cursor-pointer"
+                    className="absolute -left-[27px] sm:-left-[33px] top-5 -translate-x-1/2 z-10 p-0.5 rounded-full bg-[#090A0F] transition-transform duration-200 hover:scale-115 focus:outline-none focus:ring-2 focus:ring-blue-500/50 cursor-pointer"
                     aria-label={
                       isItemDone
                         ? `Mark "${item.topic}" as incomplete`
@@ -447,7 +447,7 @@ export default function StudyPlan() {
                     {isItemDone ? (
                       <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400 fill-emerald-500/20 transition-colors" />
                     ) : (
-                      <Circle className="w-5 h-5 sm:w-6 sm:h-6 text-slate-500 group-hover:text-purple-400 transition-colors" />
+                      <Circle className="w-5 h-5 sm:w-6 sm:h-6 text-slate-500 group-hover:text-blue-400 transition-colors" />
                     )}
                   </button>
 
@@ -463,10 +463,10 @@ export default function StudyPlan() {
                         toggleStudyPlanItem(item.id);
                       }
                     }}
-                    className={`glass-card p-5 sm:p-6 transition-all duration-300 border cursor-pointer select-none ${
+                    className={`studio-card p-5 sm:p-6 transition-all duration-300 border cursor-pointer select-none ${
                       isItemDone
                         ? 'border-emerald-500/20 bg-emerald-950/10 shadow-sm opacity-80'
-                        : 'border-slate-800/80 hover:border-purple-500/40 hover:bg-slate-900/40 hover:shadow-lg hover:shadow-purple-500/5'
+                        : 'border-white/[0.08] hover:border-blue-500/40 hover:bg-[#161926]/50'
                     }`}
                   >
                     <div className="flex flex-col md:flex-row md:items-start justify-between gap-3">
@@ -498,8 +498,8 @@ export default function StudyPlan() {
                         onClick={(e) => e.stopPropagation()}
                       >
                         {/* Duration Badge */}
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-300 border border-purple-500/20 shadow-sm">
-                          <Clock className="w-3 h-3 text-purple-400 shrink-0" />
+                        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-300 border border-blue-500/20 shadow-sm font-mono">
+                          <Clock className="w-3.5 h-3.5 text-blue-400 shrink-0" />
                           <span>{item.duration}</span>
                         </div>
 

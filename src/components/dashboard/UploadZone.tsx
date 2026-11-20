@@ -235,23 +235,23 @@ export default function UploadZone() {
       {/* Header section */}
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2">
-          <span className="px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
+          <span className="px-3 py-1 text-xs font-mono uppercase tracking-wider rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20">
             Knowledge Ingestion
           </span>
-          <span className="text-xs text-slate-400">PDF, TXT, Markdown</span>
+          <span className="text-xs text-slate-400 font-mono">PDF, TXT, Markdown</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-          Upload Your <span className="gradient-text">Study Materials</span>
+          Upload Your <span className="accent-text">Study Materials</span>
         </h1>
-        <p className="text-slate-300 text-sm sm:text-base max-w-2xl leading-relaxed">
+        <p className="text-slate-400 text-sm sm:text-base max-w-2xl leading-relaxed">
           Feed your lecture slides, textbook excerpts, or custom notes into StudyBuddy AI.
-          Our engine extracts and indexes content for flashcards, quizzes, mind maps, and instant AI tutoring.
+          Our engine indexes content for active recall flashcards, practice quizzes, mind maps, and Socratic tutoring.
         </p>
 
         {/* 1-Click Sample Material Presets for Evaluators */}
         <div className="pt-2 flex flex-wrap items-center gap-2">
-          <span className="text-xs text-purple-300 font-semibold flex items-center gap-1">
-            <Sparkles className="w-3.5 h-3.5" /> Evaluator Quick-Start:
+          <span className="text-xs text-slate-400 font-mono flex items-center gap-1">
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Evaluator Quick-Start:
           </span>
           <button
             type="button"
@@ -269,7 +269,7 @@ Photosynthesis is the reverse energy-harnessing process occurring in chloroplast
               });
               setSuccessMessage('Loaded Biology sample notes! You can now test Chat, Flashcards, Quiz & Mind Map.');
             }}
-            className="min-h-[44px] px-3.5 py-2 rounded-lg text-xs font-medium glass-card border border-purple-500/30 text-purple-200 hover:bg-purple-500/20 hover:text-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 cursor-pointer active:scale-95"
+            className="min-h-[44px] px-3.5 py-2 rounded-lg text-xs font-medium studio-card border border-white/[0.08] text-slate-300 hover:border-blue-500/40 hover:bg-blue-500/10 hover:text-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 cursor-pointer active:scale-95"
           >
             Load Biology Notes (Sample)
           </button>
@@ -294,7 +294,7 @@ Data structures:
               });
               setSuccessMessage('Loaded Computer Science sample notes! Try taking a quiz or generating a mind map.');
             }}
-            className="min-h-[44px] px-3.5 py-2 rounded-lg text-xs font-medium glass-card border border-indigo-500/30 text-indigo-200 hover:bg-indigo-500/20 hover:text-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 cursor-pointer active:scale-95"
+            className="min-h-[44px] px-3.5 py-2 rounded-lg text-xs font-medium studio-card border border-white/[0.08] text-slate-300 hover:border-amber-500/40 hover:bg-amber-500/10 hover:text-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 cursor-pointer active:scale-95"
           >
             Load CS Algorithms (Sample)
           </button>
@@ -355,21 +355,21 @@ Data structures:
       </AnimatePresence>
 
       {/* Main Upload / Paste Box */}
-      <div className="glass-card overflow-hidden">
+      <div className="studio-card overflow-hidden border border-white/[0.08]">
         {/* Tab switchers */}
-        <div className="flex items-center border-b border-slate-700/60 bg-slate-900/60 p-2 sm:p-3 gap-2" role="tablist">
+        <div className="flex items-center border-b border-white/[0.08] bg-[#0d0f17] p-2 sm:p-3 gap-2" role="tablist">
           <button
             type="button"
             role="tab"
             aria-selected={activeTab === 'upload'}
             onClick={() => setActiveTab('upload')}
-            className={`min-h-[44px] flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-95 ${
+            className={`min-h-[44px] flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 active:scale-95 ${
               activeTab === 'upload'
-                ? 'bg-purple-600/30 text-purple-200 border border-purple-500/40 shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
+                ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/30'
+                : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.04]'
             }`}
           >
-            <Upload className="w-4 h-4 text-purple-400" />
+            <Upload className="w-4 h-4 text-blue-400" />
             <span>Upload Files</span>
           </button>
           <button
@@ -377,19 +377,19 @@ Data structures:
             role="tab"
             aria-selected={activeTab === 'paste'}
             onClick={() => setActiveTab('paste')}
-            className={`min-h-[44px] flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-95 ${
+            className={`min-h-[44px] flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 active:scale-95 ${
               activeTab === 'paste'
-                ? 'bg-purple-600/30 text-purple-200 border border-purple-500/40 shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
+                ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/30'
+                : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.04]'
             }`}
           >
-            <AlignLeft className="w-4 h-4 text-indigo-400" />
+            <AlignLeft className="w-4 h-4 text-blue-400" />
             <span>Paste Notes</span>
           </button>
 
           {isProcessing && (
-            <div className="ml-auto flex items-center gap-2 text-xs text-purple-300 bg-purple-950/60 border border-purple-500/30 px-3 py-1.5 rounded-full animate-pulse">
-              <Loader2 className="w-3.5 h-3.5 animate-spin text-purple-400" />
+            <div className="ml-auto flex items-center gap-2 text-xs text-blue-300 bg-blue-950/60 border border-blue-500/30 px-3 py-1.5 rounded-full animate-pulse font-mono">
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-blue-400" />
               <span>{statusMessage || 'Processing...'}</span>
             </div>
           )}
@@ -400,32 +400,32 @@ Data structures:
             /* Dropzone Container */
             <div
               {...getRootProps()}
-              className={`relative group rounded-2xl border-2 border-dashed p-8 sm:p-12 text-center transition-all duration-300 flex flex-col items-center justify-center cursor-pointer select-none ${
+              className={`relative group rounded-2xl border-2 border-dashed p-8 sm:p-12 text-center transition-all duration-200 flex flex-col items-center justify-center cursor-pointer select-none ${
                 isDragReject
                   ? 'border-red-500 bg-red-500/10'
                   : isDragActive
-                  ? 'border-purple-400 bg-purple-500/15 scale-[1.01] shadow-xl shadow-purple-500/10'
+                  ? 'border-blue-500 bg-blue-500/10 scale-[1.01]'
                   : isProcessing
-                  ? 'border-slate-700 bg-slate-900/40 cursor-not-allowed opacity-75'
-                  : 'border-purple-400/30 hover:border-purple-400/70 bg-slate-900/40 hover:bg-slate-800/50'
+                  ? 'border-white/[0.08] bg-white/[0.01] cursor-not-allowed opacity-75'
+                  : 'border-white/[0.12] hover:border-blue-500/40 bg-white/[0.015] hover:bg-white/[0.03]'
               }`}
             >
               <input {...getInputProps()} />
 
-              {/* Glowing Icon Container */}
+              {/* Icon Container */}
               <div
-                className={`w-20 h-20 rounded-2xl flex items-center justify-center mb-5 transition-transform duration-300 ${
+                className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-5 transition-transform duration-200 ${
                   isDragActive
-                    ? 'scale-110 bg-gradient-to-tr from-purple-500 to-indigo-500 text-white shadow-lg shadow-purple-500/30'
+                    ? 'scale-110 bg-blue-600 text-white shadow-lg shadow-blue-600/30'
                     : isProcessing
-                    ? 'bg-purple-950/70 text-purple-300 border border-purple-500/30'
-                    : 'bg-gradient-to-tr from-purple-900/50 to-indigo-900/50 border border-purple-500/30 text-purple-300 group-hover:scale-105 group-hover:border-purple-400 group-hover:text-purple-200'
+                    ? 'bg-blue-950/70 text-blue-300 border border-blue-500/30'
+                    : 'bg-white/[0.04] border border-white/[0.08] text-blue-400 group-hover:scale-105 group-hover:text-blue-300'
                 }`}
               >
                 {isProcessing ? (
-                  <Loader2 className="w-10 h-10 animate-spin text-purple-400" />
+                  <Loader2 className="w-8 h-8 animate-spin text-blue-400" />
                 ) : (
-                  <Upload className="w-10 h-10 transition-transform duration-300 group-hover:-translate-y-1" />
+                  <Upload className="w-8 h-8 transition-transform duration-200 group-hover:-translate-y-0.5" />
                 )}
               </div>
 
@@ -435,13 +435,13 @@ Data structures:
                   {isDragReject ? (
                     <span className="text-red-400">File format not supported</span>
                   ) : isDragActive ? (
-                    <span className="text-purple-300">Drop your files here to start</span>
+                    <span className="text-blue-300">Drop your files here to start</span>
                   ) : isProcessing ? (
-                    <span className="text-purple-300">Extracting document contents...</span>
+                    <span className="text-blue-300">Extracting document contents...</span>
                   ) : (
                     <span>
-                      Drag & drop your files here, or{' '}
-                      <span className="text-purple-400 underline underline-offset-4 decoration-purple-500/50 group-hover:text-purple-300">
+                      Drag &amp; drop your files here, or{' '}
+                      <span className="text-blue-400 underline underline-offset-4 decoration-blue-500/50 group-hover:text-blue-300">
                         browse
                       </span>
                     </span>
@@ -565,23 +565,23 @@ Data structures:
               type="button"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => setActiveView('chat')}
-              className="flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl font-bold text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 bg-[length:200%_auto] hover:bg-right shadow-xl shadow-purple-500/25 border border-purple-400/30 transition-all duration-300 group"
+              className="flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-600/25 border border-blue-400/30 transition-all duration-200 group cursor-pointer"
             >
-              <Sparkles className="w-4 h-4 text-purple-200" />
+              <Sparkles className="w-4 h-4 text-blue-200" />
               <span>Start Learning</span>
-              <ArrowRight className="w-5 h-5 text-purple-200 transition-transform duration-200 group-hover:translate-x-1" />
+              <ArrowRight className="w-5 h-5 text-blue-200 transition-transform duration-200 group-hover:translate-x-1" />
             </motion.button>
           )}
         </div>
 
         {/* Empty State */}
         {currentDocs.length === 0 ? (
-          <div className="glass-card p-10 text-center rounded-2xl border border-dashed border-slate-800 flex flex-col items-center justify-center">
-            <div className="w-16 h-16 rounded-2xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-center mb-4 text-slate-400">
-              <BookOpen className="w-8 h-8 text-slate-400" />
+          <div className="studio-card p-10 text-center rounded-2xl border border-dashed border-white/[0.08] flex flex-col items-center justify-center">
+            <div className="w-14 h-14 rounded-2xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-center mb-4 text-slate-400">
+              <BookOpen className="w-7 h-7 text-slate-400" />
             </div>
             <h3 className="text-base font-semibold text-slate-200 mb-1">
               No study documents added yet
@@ -590,17 +590,17 @@ Data structures:
               Upload course slides, syllabus, or paste lecture notes above to unlock flashcards, quizzes, mind maps, and your personal AI study assistant.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-xl text-left text-xs text-slate-400">
-              <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
-                <span className="text-purple-400 font-semibold block mb-0.5">1. Ingest Content</span>
+              <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
+                <span className="text-blue-400 font-semibold block mb-0.5">1. Ingest Content</span>
                 Upload PDFs, notes, or textbook extracts.
               </div>
-              <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+              <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
                 <span className="text-indigo-400 font-semibold block mb-0.5">2. AI Synthesis</span>
-                Gemini extracts core concepts & terms.
+                Gemini extracts core concepts &amp; terms.
               </div>
-              <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
-                <span className="text-purple-300 font-semibold block mb-0.5">3. Master Topics</span>
-                Practice quizzes, study plans & flashcards.
+              <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
+                <span className="text-amber-400 font-semibold block mb-0.5">3. Master Topics</span>
+                Practice quizzes, study plans &amp; flashcards.
               </div>
             </div>
           </div>
@@ -620,7 +620,7 @@ Data structures:
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.9, y: -10 }}
                     transition={{ duration: 0.2 }}
-                    className="glass-card p-5 rounded-xl border border-slate-700/50 bg-slate-900/50 hover:border-purple-500/40 transition-all flex flex-col justify-between group shadow-sm hover:shadow-md hover:shadow-purple-500/5"
+                    className="studio-card p-5 rounded-xl border border-white/[0.08] bg-[#12141e] hover:border-blue-500/30 transition-all flex flex-col justify-between group shadow-sm"
                   >
                     <div>
                       {/* Top bar with icon, title, and delete button */}
@@ -629,15 +629,15 @@ Data structures:
                           <div
                             className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${
                               isPdf
-                                ? 'bg-purple-500/15 border-purple-500/30 text-purple-300'
-                                : 'bg-indigo-500/15 border-indigo-500/30 text-indigo-300'
+                                ? 'bg-blue-500/10 border-blue-500/20 text-blue-400'
+                                : 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400'
                             }`}
                           >
                             <FileText className="w-5 h-5" />
                           </div>
                           <div className="min-w-0">
                             <h4
-                              className="text-sm font-bold text-white truncate group-hover:text-purple-200 transition-colors"
+                              className="text-sm font-bold text-white truncate group-hover:text-blue-200 transition-colors"
                               title={doc.name}
                             >
                               {doc.name}
@@ -649,7 +649,7 @@ Data structures:
                               {doc.pageCount && (
                                 <>
                                   <span>&bull;</span>
-                                  <span className="text-purple-300 font-medium">
+                                  <span className="text-blue-300 font-medium">
                                     {doc.pageCount} {doc.pageCount === 1 ? 'page' : 'pages'}
                                   </span>
                                 </>
@@ -671,13 +671,13 @@ Data structures:
                       </div>
 
                       {/* Content excerpt preview */}
-                      <p className="text-xs text-slate-400/90 line-clamp-2 leading-relaxed mt-2 bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/70 font-mono">
+                      <p className="text-xs text-slate-400/90 line-clamp-2 leading-relaxed mt-2 bg-black/30 p-2.5 rounded-lg border border-white/[0.06] font-mono">
                         {doc.content.slice(0, 200)}...
                       </p>
                     </div>
 
                     {/* Card footer badges */}
-                    <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
+                    <div className="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px]">
                       <span className="inline-flex items-center gap-1 text-slate-400">
                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                         <span>Ready for AI processing</span>
@@ -686,7 +686,7 @@ Data structures:
                       <button
                         type="button"
                         onClick={() => setActiveView('chat')}
-                        className="min-h-[44px] text-purple-400 hover:text-purple-300 font-medium flex items-center gap-1 transition-colors group/btn cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 px-2 rounded-lg"
+                        className="min-h-[44px] text-blue-400 hover:text-blue-300 font-medium flex items-center gap-1 transition-colors group/btn cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 px-2 rounded-lg"
                       >
                         <span>Study This</span>
                         <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5" />
@@ -704,17 +704,17 @@ Data structures:
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="p-6 rounded-2xl bg-gradient-to-r from-purple-900/30 via-indigo-900/20 to-purple-900/30 border border-purple-500/20 flex flex-col sm:flex-row items-center justify-between gap-4 mt-6"
+            className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 mt-6"
           >
             <div className="flex items-center gap-3 text-center sm:text-left">
-              <div className="w-12 h-12 rounded-xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center shrink-0">
-                <Sparkles className="w-6 h-6 text-purple-300" />
+              <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
+                <Sparkles className="w-6 h-6 text-blue-400" />
               </div>
               <div>
                 <h3 className="text-base font-bold text-white">
                   Ready to accelerate your learning?
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-300">
+                <p className="text-xs sm:text-sm text-slate-400">
                   {currentDocs.length} study document{currentDocs.length > 1 ? 's' : ''} loaded. Jump straight into AI chat, flashcards, or practice quizzes.
                 </p>
               </div>
@@ -723,7 +723,7 @@ Data structures:
             <button
               type="button"
               onClick={() => setActiveView('chat')}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 shadow-lg shadow-purple-600/30 transition-all hover:scale-105 active:scale-95 shrink-0"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white bg-blue-600 hover:bg-blue-500 shadow-md shadow-blue-600/20 transition-all hover:scale-105 active:scale-95 shrink-0 cursor-pointer"
             >
               <span>Start Learning Now</span>
               <ArrowRight className="w-4 h-4" />

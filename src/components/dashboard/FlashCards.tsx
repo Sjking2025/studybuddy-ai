@@ -190,7 +190,7 @@ export default function FlashCards() {
         );
       default:
         return (
-          <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-500/15 text-purple-400 border border-purple-500/30 uppercase tracking-wider">
+          <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/15 text-blue-400 border border-blue-500/30 uppercase tracking-wider">
             Normal
           </span>
         );
@@ -230,9 +230,9 @@ export default function FlashCards() {
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-              AI <span className="gradient-text">Flashcards</span>
+              AI <span className="brand-title">Flashcards</span>
             </h1>
-            <span className="px-2.5 py-0.5 text-xs font-medium rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20">
+            <span className="px-2.5 py-0.5 text-xs font-medium rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20 font-mono">
               Active Recall
             </span>
           </div>
@@ -249,9 +249,9 @@ export default function FlashCards() {
               onClick={handleResetSession}
               disabled={isLoading}
               title="Restart session from first card"
-              className="min-h-[44px] flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 transition-all shadow-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-95"
+              className="min-h-[44px] flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:text-white bg-[#12141e] hover:bg-[#161926] border border-white/[0.08] transition-all shadow-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 active:scale-95"
             >
-              <RotateCcw className="w-4 h-4 text-purple-400" />
+              <RotateCcw className="w-4 h-4 text-blue-400" />
               <span>Restart</span>
             </button>
           )}
@@ -260,7 +260,7 @@ export default function FlashCards() {
             type="button"
             onClick={handleGenerateFlashcards}
             disabled={isLoading || (!hasDocuments && totalCards === 0)}
-            className="min-h-[44px] flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-purple-600/25 active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
+            className="min-h-[44px] flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md shadow-blue-600/20 active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
           >
             {isLoading ? (
               <>
@@ -269,7 +269,7 @@ export default function FlashCards() {
               </>
             ) : (
               <>
-                <Sparkles className="w-4 h-4 text-purple-200" />
+                <Sparkles className="w-4 h-4 text-blue-200" />
                 <span>{totalCards > 0 ? 'Regenerate Flashcards' : 'Generate Flashcards'}</span>
               </>
             )}
@@ -282,7 +282,7 @@ export default function FlashCards() {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="glass-card p-4 rounded-xl border border-amber-500/30 bg-amber-500/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-amber-200"
+          className="studio-card p-4 rounded-xl border border-amber-500/30 bg-amber-500/[0.06] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-amber-200"
         >
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-lg bg-amber-500/20 text-amber-400 shrink-0">
@@ -300,7 +300,7 @@ export default function FlashCards() {
           <button
             type="button"
             onClick={() => setActiveView('upload')}
-            className="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-500/40 transition-colors shrink-0"
+            className="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-500/40 transition-colors shrink-0 cursor-pointer"
           >
             Go to Upload
           </button>
@@ -312,7 +312,7 @@ export default function FlashCards() {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="glass-card p-4 rounded-xl border border-rose-500/30 bg-rose-500/10 flex items-center justify-between gap-3 text-rose-200"
+          className="studio-card p-4 rounded-xl border border-rose-500/30 bg-rose-500/10 flex items-center justify-between gap-3 text-rose-200"
         >
           <div className="flex items-center gap-3">
             <AlertCircle className="w-5 h-5 text-rose-400 shrink-0" />
@@ -321,7 +321,7 @@ export default function FlashCards() {
           <button
             type="button"
             onClick={() => setError(null)}
-            className="text-xs text-rose-300 hover:text-white underline shrink-0"
+            className="text-xs text-rose-300 hover:text-white underline shrink-0 cursor-pointer"
           >
             Dismiss
           </button>
@@ -330,7 +330,7 @@ export default function FlashCards() {
 
       {/* Progress Bar (when cards exist) */}
       {totalCards > 0 && (
-        <div className="glass-card p-4 rounded-xl border border-slate-700/40 bg-slate-900/40 flex flex-col gap-2">
+        <div className="studio-card p-4 rounded-xl border border-white/[0.08] flex flex-col gap-2">
           <div className="flex items-center justify-between text-xs font-medium">
             <div className="flex items-center gap-2">
               <span className="text-slate-400">Mastery Progress:</span>
@@ -338,13 +338,13 @@ export default function FlashCards() {
                 {masteredCount} of {totalCards} Mastered
               </span>
             </div>
-            <span className="text-purple-400 font-bold font-mono">
+            <span className="text-blue-400 font-bold font-mono">
               {progressPercentage}%
             </span>
           </div>
-          <div className="w-full h-2.5 bg-slate-800/80 rounded-full overflow-hidden border border-slate-700/50 p-0.5">
+          <div className="w-full h-2.5 bg-[#090A0F] rounded-full overflow-hidden border border-white/[0.08] p-0.5">
             <motion.div
-              className="h-full rounded-full bg-gradient-to-r from-purple-500 via-indigo-500 to-emerald-400 shadow-sm shadow-purple-500/30"
+              className="h-full rounded-full bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-400 shadow-sm shadow-blue-500/30"
               initial={{ width: 0 }}
               animate={{ width: `${progressPercentage}%` }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
@@ -356,12 +356,12 @@ export default function FlashCards() {
       {/* Main Flashcard Stage */}
       {isLoading ? (
         /* Loading State */
-        <div className="glass-card min-h-[380px] sm:min-h-[420px] rounded-2xl flex flex-col items-center justify-center p-8 text-center border border-purple-500/20 bg-slate-900/40">
+        <div className="studio-card min-h-[380px] sm:min-h-[420px] rounded-2xl flex flex-col items-center justify-center p-8 text-center border border-blue-500/20 bg-[#12141e]">
           <div className="relative mb-5">
-            <div className="w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center animate-pulse">
-              <Sparkles className="w-8 h-8 text-purple-400" />
+            <div className="w-16 h-16 rounded-2xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center animate-pulse">
+              <Sparkles className="w-8 h-8 text-blue-400" />
             </div>
-            <Loader2 className="w-7 h-7 text-indigo-400 animate-spin absolute -bottom-2 -right-2 bg-slate-900 rounded-full p-0.5" />
+            <Loader2 className="w-7 h-7 text-blue-400 animate-spin absolute -bottom-2 -right-2 bg-[#090A0F] rounded-full p-0.5" />
           </div>
           <h3 className="text-lg font-bold text-white mb-2">
             Synthesizing Flashcards...
@@ -407,11 +407,11 @@ export default function FlashCards() {
                     }`}
                   >
                     {/* Front Side: Question */}
-                    <div className="flashcard-front glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between border border-purple-500/25 bg-slate-900/70 shadow-2xl shadow-purple-950/20 backdrop-blur-2xl">
+                    <div className="flashcard-front studio-card-elevated rounded-2xl p-6 sm:p-8 flex flex-col justify-between border border-white/[0.1] bg-[#12141e] shadow-2xl shadow-black/50">
                       {/* Top Bar */}
-                      <div className="flex items-center justify-between gap-3 border-b border-slate-800/80 pb-3">
+                      <div className="flex items-center justify-between gap-3 border-b border-white/[0.08] pb-3">
                         <div className="flex items-center gap-2">
-                          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wider uppercase bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wider uppercase bg-blue-500/15 text-blue-300 border border-blue-500/30 font-mono">
                             Question
                           </span>
                           {getDifficultyBadge(currentCard.difficulty)}
@@ -419,7 +419,7 @@ export default function FlashCards() {
 
                         {/* Mastered Status Indicator */}
                         {currentCard.mastered && (
-                          <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                          <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-mono">
                             <Check className="w-3.5 h-3.5" />
                             <span>Mastered</span>
                           </div>
@@ -434,9 +434,9 @@ export default function FlashCards() {
                       </div>
 
                       {/* Bottom Hint Bar */}
-                      <div className="flex items-center justify-between text-xs text-slate-400 border-t border-slate-800/80 pt-3">
-                        <div className="flex items-center gap-1.5 text-slate-400 group-hover:text-purple-300 transition-colors">
-                          <RotateCcw className="w-3.5 h-3.5 text-purple-400" />
+                      <div className="flex items-center justify-between text-xs text-slate-400 border-t border-white/[0.08] pt-3">
+                        <div className="flex items-center gap-1.5 text-slate-400 group-hover:text-blue-300 transition-colors">
+                          <RotateCcw className="w-3.5 h-3.5 text-blue-400" />
                           <span>Click card or press Space to reveal answer</span>
                         </div>
                         <span className="font-mono text-slate-500 text-[11px]">
@@ -446,11 +446,11 @@ export default function FlashCards() {
                     </div>
 
                     {/* Back Side: Answer */}
-                    <div className="flashcard-back glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between border border-indigo-500/30 bg-slate-900/80 shadow-2xl shadow-indigo-950/25 backdrop-blur-2xl">
+                    <div className="flashcard-back studio-card-elevated rounded-2xl p-6 sm:p-8 flex flex-col justify-between border border-amber-500/30 bg-[#14161f] shadow-2xl shadow-black/50">
                       {/* Top Bar */}
-                      <div className="flex items-center justify-between gap-3 border-b border-slate-800/80 pb-3">
+                      <div className="flex items-center justify-between gap-3 border-b border-white/[0.08] pb-3">
                         <div className="flex items-center gap-2">
-                          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wider uppercase bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wider uppercase bg-amber-500/15 text-amber-300 border border-amber-500/30 font-mono">
                             Answer
                           </span>
                           {getDifficultyBadge(currentCard.difficulty)}
@@ -458,7 +458,7 @@ export default function FlashCards() {
 
                         {/* Mastered Status Indicator */}
                         {currentCard.mastered && (
-                          <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                          <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-mono">
                             <Check className="w-3.5 h-3.5" />
                             <span>Mastered</span>
                           </div>
@@ -473,9 +473,9 @@ export default function FlashCards() {
                       </div>
 
                       {/* Bottom Hint Bar */}
-                      <div className="flex items-center justify-between text-xs text-slate-400 border-t border-slate-800/80 pt-3">
-                        <div className="flex items-center gap-1.5 text-slate-400 group-hover:text-indigo-300 transition-colors">
-                          <RotateCcw className="w-3.5 h-3.5 text-indigo-400" />
+                      <div className="flex items-center justify-between text-xs text-slate-400 border-t border-white/[0.08] pt-3">
+                        <div className="flex items-center gap-1.5 text-slate-400 group-hover:text-amber-300 transition-colors">
+                          <RotateCcw className="w-3.5 h-3.5 text-amber-400" />
                           <span>Click card or press Space to view question</span>
                         </div>
                         <span className="font-mono text-slate-500 text-[11px]">
@@ -490,16 +490,16 @@ export default function FlashCards() {
           </div>
 
           {/* Navigation & Controls Bar */}
-          <div className="w-full max-w-2xl flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-xl glass-card border border-slate-700/50 bg-slate-900/50">
+          <div className="w-full max-w-2xl flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-xl studio-card border border-white/[0.08]">
             {/* Previous Card Button */}
             <button
               type="button"
               onClick={handlePrev}
               disabled={currentIndex === 0}
-              className="w-full sm:w-auto min-h-[44px] flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 disabled:opacity-40 disabled:cursor-not-allowed border border-slate-700/60 transition-all active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
+              className="w-full sm:w-auto min-h-[44px] flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-white bg-[#161926] hover:bg-[#1a1e2e] disabled:opacity-40 disabled:cursor-not-allowed border border-white/[0.08] transition-all active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
               aria-label="Previous flashcard"
             >
-              <ChevronLeft className="w-4 h-4 text-purple-400" />
+              <ChevronLeft className="w-4 h-4 text-blue-400" />
               <span>Previous</span>
             </button>
 
@@ -517,7 +517,7 @@ export default function FlashCards() {
                 className={`min-h-[44px] flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold border transition-all active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 ${
                   currentCard.mastered
                     ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 hover:bg-emerald-500/30 shadow-md shadow-emerald-950/20'
-                    : 'bg-slate-800/80 text-slate-300 border-slate-700/60 hover:bg-slate-700/70 hover:text-white'
+                    : 'bg-[#161926] text-slate-300 border border-white/[0.08] hover:bg-[#1a1e2e] hover:text-white'
                 }`}
               >
                 <Check
@@ -534,32 +534,32 @@ export default function FlashCards() {
               type="button"
               onClick={handleNext}
               disabled={currentIndex === totalCards - 1}
-              className="w-full sm:w-auto min-h-[44px] flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 disabled:opacity-40 disabled:cursor-not-allowed border border-slate-700/60 transition-all active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
+              className="w-full sm:w-auto min-h-[44px] flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-white bg-[#161926] hover:bg-[#1a1e2e] disabled:opacity-40 disabled:cursor-not-allowed border border-white/[0.08] transition-all active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
               aria-label="Next flashcard"
             >
               <span>Next</span>
-              <ChevronRight className="w-4 h-4 text-purple-400" />
+              <ChevronRight className="w-4 h-4 text-blue-400" />
             </button>
           </div>
 
           {/* Keyboard Shortcuts Hint Bar */}
           <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-slate-400 select-none">
             <span className="flex items-center gap-1.5">
-              <kbd className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700 text-slate-300 font-mono text-[11px] shadow-sm">
+              <kbd className="px-2 py-0.5 rounded bg-[#090A0F] border border-white/[0.1] text-slate-300 font-mono text-[11px] shadow-sm">
                 ←
               </kbd>
               <span>Previous</span>
             </span>
             <span className="text-slate-600">•</span>
             <span className="flex items-center gap-1.5">
-              <kbd className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700 text-slate-300 font-mono text-[11px] shadow-sm">
+              <kbd className="px-2 py-0.5 rounded bg-[#090A0F] border border-white/[0.1] text-slate-300 font-mono text-[11px] shadow-sm">
                 Space
               </kbd>
               <span>Flip Card</span>
             </span>
             <span className="text-slate-600">•</span>
             <span className="flex items-center gap-1.5">
-              <kbd className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700 text-slate-300 font-mono text-[11px] shadow-sm">
+              <kbd className="px-2 py-0.5 rounded bg-[#090A0F] border border-white/[0.1] text-slate-300 font-mono text-[11px] shadow-sm">
                 →
               </kbd>
               <span>Next</span>
@@ -568,9 +568,9 @@ export default function FlashCards() {
         </div>
       ) : (
         /* Empty State */
-        <div className="glass-card min-h-[380px] sm:min-h-[420px] rounded-2xl flex flex-col items-center justify-center p-8 text-center border border-slate-700/40 bg-slate-900/40">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/20 to-indigo-500/20 border border-purple-500/30 flex items-center justify-center mb-4 shadow-lg shadow-purple-500/10">
-            <Sparkles className="w-8 h-8 text-purple-400" />
+        <div className="studio-card min-h-[380px] sm:min-h-[420px] rounded-2xl flex flex-col items-center justify-center p-8 text-center border border-white/[0.08]">
+          <div className="w-16 h-16 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-4 text-blue-400 shadow-md shadow-blue-500/5">
+            <Sparkles className="w-8 h-8" />
           </div>
 
           <h3 className="text-xl font-bold text-white mb-2">
@@ -586,16 +586,16 @@ export default function FlashCards() {
               type="button"
               onClick={handleGenerateFlashcards}
               disabled={isLoading}
-              className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 transition-all shadow-lg shadow-purple-600/30 active:scale-95"
+              className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-all shadow-md shadow-blue-600/25 active:scale-95 cursor-pointer"
             >
-              <Sparkles className="w-4 h-4 text-purple-200" />
+              <Sparkles className="w-4 h-4 text-blue-200" />
               <span>Generate Flashcards Now</span>
             </button>
           ) : (
             <button
               type="button"
               onClick={() => setActiveView('upload')}
-              className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-all active:scale-95"
+              className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white bg-[#161926] hover:bg-[#1a1e2e] border border-white/[0.08] transition-all active:scale-95 cursor-pointer"
             >
               <AlertCircle className="w-4 h-4 text-amber-400" />
               <span>Upload Documents First</span>

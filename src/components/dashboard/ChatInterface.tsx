@@ -249,20 +249,20 @@ export default function ChatInterface() {
   };
 
   return (
-    <div className="glass-card flex flex-col h-[calc(100vh-8.5rem)] lg:h-[calc(100vh-6.5rem)] border border-slate-700/40 shadow-2xl overflow-hidden rounded-2xl relative">
+    <div className="studio-card flex flex-col h-[calc(100vh-8.5rem)] lg:h-[calc(100vh-6.5rem)] border border-white/[0.08] shadow-2xl overflow-hidden rounded-2xl relative">
       {/* Top Header Bar */}
-      <header className="px-4 sm:px-6 py-3.5 border-b border-slate-800/80 bg-slate-950/50 backdrop-blur-md flex items-center justify-between shrink-0">
+      <header className="px-4 sm:px-6 py-3.5 border-b border-white/[0.08] bg-[#090A0F]/80 backdrop-blur-md flex items-center justify-between shrink-0">
         <div className="flex items-center gap-3 min-w-0">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center shrink-0 shadow-md shadow-purple-500/25">
-            <Bot className="w-5 h-5 text-white" />
+          <div className="w-9 h-9 rounded-xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center shrink-0 shadow-md shadow-blue-500/10">
+            <Bot className="w-5 h-5 text-blue-400" />
           </div>
           <div className="flex flex-col min-w-0">
             <div className="flex items-center gap-2">
               <h2 className="text-sm sm:text-base font-bold text-white tracking-tight truncate">
                 AI Study Tutor
               </h2>
-              <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                <Sparkles className="w-2.5 h-2.5 text-purple-400" />
+              <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-500/15 text-blue-300 border border-blue-500/30 font-mono">
+                <Sparkles className="w-2.5 h-2.5 text-blue-400" />
                 Socratic Method
               </span>
             </div>
@@ -289,7 +289,7 @@ export default function ChatInterface() {
             type="button"
             onClick={handleClearChat}
             disabled={currentMessages.length === 0 || isStreaming}
-            className="min-h-[44px] flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-red-300 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 active:scale-95"
+            className="min-h-[44px] flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-red-300 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 active:scale-95"
             title="Clear chat history"
             aria-label="Clear chat history"
           >
@@ -307,7 +307,7 @@ export default function ChatInterface() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="border-b border-amber-500/20 bg-amber-500/10 px-4 sm:px-6 py-2.5 text-xs text-amber-200/90 flex items-center gap-2.5 shrink-0"
+            className="border-b border-amber-500/20 bg-amber-500/[0.06] px-4 sm:px-6 py-2.5 text-xs text-amber-200/90 flex items-center gap-2.5 shrink-0"
           >
             <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
             <div className="flex-1 min-w-0">
@@ -329,16 +329,16 @@ export default function ChatInterface() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="border-b border-red-500/20 bg-red-500/10 px-4 sm:px-6 py-2.5 text-xs text-red-200 flex items-center justify-between gap-2.5 shrink-0"
+            className="border-b border-rose-500/20 bg-rose-500/10 px-4 sm:px-6 py-2.5 text-xs text-rose-200 flex items-center justify-between gap-2.5 shrink-0"
           >
             <div className="flex items-center gap-2 min-w-0">
-              <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+              <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
               <span className="truncate">{error}</span>
             </div>
             <button
               type="button"
               onClick={() => setError(null)}
-              className="text-xs text-red-300 hover:text-white underline ml-2 shrink-0 cursor-pointer"
+              className="text-xs text-rose-300 hover:text-white underline ml-2 shrink-0 cursor-pointer"
             >
               Dismiss
             </button>
@@ -357,16 +357,16 @@ export default function ChatInterface() {
             className="h-full flex flex-col items-center justify-center max-w-2xl mx-auto py-6 sm:py-10 text-center"
           >
             <div className="relative mb-5">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center shadow-xl shadow-purple-500/30">
-                <Bot className="w-9 h-9 text-white" />
+              <div className="w-16 h-16 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center shadow-lg shadow-blue-500/10">
+                <Bot className="w-9 h-9 text-blue-400" />
               </div>
-              <div className="absolute -bottom-1 -right-1 p-1 rounded-full bg-slate-900 border border-purple-500/30 shadow">
-                <Sparkles className="w-4 h-4 text-purple-400" />
+              <div className="absolute -bottom-1 -right-1 p-1 rounded-full bg-[#090A0F] border border-blue-500/30 shadow">
+                <Sparkles className="w-4 h-4 text-blue-400" />
               </div>
             </div>
 
             <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-white mb-2">
-              Welcome to <span className="gradient-text">StudyBuddy AI Tutor</span>
+              Welcome to <span className="brand-title">StudyBuddy AI Tutor</span>
             </h3>
 
             <p className="text-sm text-slate-300 max-w-lg mb-8 leading-relaxed">
@@ -377,8 +377,8 @@ export default function ChatInterface() {
 
             {/* Prompt Starter Cards */}
             <div className="w-full">
-              <div className="flex items-center justify-center gap-2 mb-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+              <div className="flex items-center justify-center gap-2 mb-3 text-xs font-semibold text-slate-400 uppercase tracking-wider font-mono">
+                <Sparkles className="w-3.5 h-3.5 text-blue-400" />
                 <span>Suggested Prompt Starters</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
@@ -387,13 +387,13 @@ export default function ChatInterface() {
                   return (
                     <motion.button
                       key={idx}
-                      whileHover={{ scale: 1.02 }}
+                      whileHover={{ scale: 1.015 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => handleSendMessage(starter.prompt)}
-                      className="p-3.5 rounded-xl border border-slate-700/50 bg-slate-800/40 hover:bg-slate-800/80 hover:border-purple-500/40 transition-all duration-200 group flex flex-col gap-1.5 cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
+                      className="studio-card p-3.5 rounded-xl border border-white/[0.08] hover:border-blue-500/40 transition-all duration-200 group flex flex-col gap-1.5 cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                     >
-                      <div className="flex items-center gap-2 text-xs font-semibold text-purple-300 group-hover:text-purple-200">
-                        <Icon className="w-4 h-4 text-purple-400 shrink-0" />
+                      <div className="flex items-center gap-2 text-xs font-semibold text-blue-300 group-hover:text-blue-200">
+                        <Icon className="w-4 h-4 text-blue-400 shrink-0" />
                         <span>{starter.title}</span>
                       </div>
                       <p className="text-xs text-slate-400 group-hover:text-slate-300 line-clamp-2 leading-relaxed">
@@ -428,11 +428,11 @@ export default function ChatInterface() {
                   >
                     {/* Role Avatar */}
                     {isUser ? (
-                      <div className="w-8 h-8 rounded-xl bg-purple-700/60 border border-purple-400/30 flex items-center justify-center shrink-0 text-purple-200 shadow-md shadow-purple-900/20 mt-0.5">
+                      <div className="w-8 h-8 rounded-xl bg-blue-600 border border-blue-400/30 flex items-center justify-center shrink-0 text-white shadow-md shadow-blue-900/20 mt-0.5">
                         <User className="w-4 h-4" />
                       </div>
                     ) : (
-                      <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center shrink-0 text-white shadow-md shadow-purple-500/25 mt-0.5">
+                      <div className="w-8 h-8 rounded-xl bg-[#161926] border border-white/[0.1] flex items-center justify-center shrink-0 text-blue-400 shadow-md mt-0.5">
                         <Bot className="w-4 h-4" />
                       </div>
                     )}
@@ -446,8 +446,8 @@ export default function ChatInterface() {
                       <div
                         className={`rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-lg break-words ${
                           isUser
-                            ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-tr-sm shadow-purple-900/20 font-medium'
-                            : 'bg-slate-900/90 border border-slate-700/60 text-slate-100 rounded-tl-sm shadow-black/25'
+                            ? 'bg-blue-600 text-white rounded-tr-sm shadow-blue-900/20 font-medium'
+                            : 'studio-card-elevated border border-white/[0.08] bg-[#12141e] text-slate-100 rounded-tl-sm shadow-black/25'
                         }`}
                       >
                         {isUser ? (
@@ -455,14 +455,14 @@ export default function ChatInterface() {
                         ) : isWaitingForFirstChunk ? (
                           /* Loading: 3-dot typing animation */
                           <div className="flex items-center gap-2 py-1 px-1">
-                            <span className="text-xs text-slate-400 font-medium">
+                            <span className="text-xs text-slate-400 font-medium font-mono">
                               Thinking
                             </span>
                             <div className="flex items-center gap-1.5 ml-1">
                               {[0, 1, 2].map((dot) => (
                                 <motion.span
-                                  key={dot}
-                                  className="w-2 h-2 rounded-full bg-purple-400"
+                                   key={dot}
+                                  className="w-2 h-2 rounded-full bg-blue-400"
                                   animate={{ y: [0, -6, 0], opacity: [0.35, 1, 0.35] }}
                                   transition={{
                                     duration: 0.8,
@@ -483,7 +483,7 @@ export default function ChatInterface() {
 
                             {/* Streaming blinking cursor */}
                             {isCurrentlyStreamingThis && (
-                              <span className="inline-block w-1.5 h-4 ml-1 bg-purple-400 animate-pulse align-middle rounded-sm" />
+                              <span className="inline-block w-1.5 h-4 ml-1 bg-blue-400 animate-pulse align-middle rounded-sm" />
                             )}
                           </div>
                         )}
@@ -495,7 +495,7 @@ export default function ChatInterface() {
                           isUser ? 'justify-end' : 'justify-start'
                         }`}
                       >
-                        <span>{formatTime(msg.timestamp)}</span>
+                        <span className="font-mono">{formatTime(msg.timestamp)}</span>
 
                         {!isUser && msg.content && (
                           <button
@@ -529,7 +529,7 @@ export default function ChatInterface() {
       </div>
 
       {/* Input + Send Button Bottom Bar */}
-      <footer className="p-3 sm:p-4 border-t border-slate-800/80 bg-slate-950/70 backdrop-blur-md shrink-0">
+      <footer className="p-3 sm:p-4 border-t border-white/[0.08] bg-[#090A0F]/80 backdrop-blur-md shrink-0">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -550,14 +550,14 @@ export default function ChatInterface() {
                   ? 'Ask anything about your notes (e.g. "Explain chapter 2", "Quiz me on formulas")...'
                   : 'Ask any study question or request an explanation...'
               }
-              className="w-full resize-none rounded-xl bg-slate-900/80 border border-slate-700/70 focus:border-purple-500 focus:ring-1 focus:ring-purple-500/40 text-slate-100 placeholder:text-slate-500 text-sm px-4 py-3 max-h-40 outline-none transition-all duration-200 disabled:opacity-50"
+              className="w-full resize-none rounded-xl bg-[#090A0F] border border-white/[0.1] focus:border-blue-500 focus:ring-1 focus:ring-blue-500/40 text-slate-100 placeholder:text-slate-500 text-sm px-4 py-3 max-h-40 outline-none transition-all duration-200 disabled:opacity-50"
             />
           </div>
 
           <button
             type="submit"
             disabled={!input.trim() || isStreaming}
-            className="h-[46px] px-4 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-medium flex items-center justify-center gap-2 shadow-lg shadow-purple-600/30 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed shrink-0 cursor-pointer active:scale-95"
+            className="h-[46px] px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium flex items-center justify-center gap-2 shadow-md shadow-blue-600/25 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed shrink-0 cursor-pointer active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
             aria-label="Send message"
           >
             {isStreaming ? (
@@ -571,18 +571,18 @@ export default function ChatInterface() {
 
         <div className="flex items-center justify-between mt-2 px-1 text-[11px] text-slate-500">
           <span className="hidden sm:inline">
-            <kbd className="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-slate-400 font-mono text-[10px]">
+            <kbd className="px-1.5 py-0.5 rounded bg-[#090A0F] border border-white/[0.1] text-slate-400 font-mono text-[10px]">
               Enter
             </kbd>{' '}
             to send •{' '}
-            <kbd className="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-slate-400 font-mono text-[10px]">
+            <kbd className="px-1.5 py-0.5 rounded bg-[#090A0F] border border-white/[0.1] text-slate-400 font-mono text-[10px]">
               Shift + Enter
             </kbd>{' '}
             for new line
           </span>
-          <span className="ml-auto flex items-center gap-1 text-[10px] text-purple-400/80">
+          <span className="ml-auto flex items-center gap-1 text-[10px] text-blue-400/90 font-mono">
             <Sparkles className="w-3 h-3" />
-            <span>Powered by Gemini AI</span>
+            <span>Gemini AI Engine</span>
           </span>
         </div>
       </footer>

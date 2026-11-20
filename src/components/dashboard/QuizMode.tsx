@@ -288,8 +288,8 @@ export default function QuizMode() {
   if (!mounted) {
     return (
       <div className="w-full flex items-center justify-center min-h-[450px]">
-        <div className="glass-card p-8 flex flex-col items-center gap-3 text-slate-400">
-          <Loader2 className="w-8 h-8 animate-spin text-purple-400" />
+        <div className="studio-card p-8 flex flex-col items-center gap-3 text-slate-400">
+          <Loader2 className="w-8 h-8 animate-spin text-blue-400" />
           <p className="text-sm font-medium">Initializing Quiz Module...</p>
         </div>
       </div>
@@ -312,7 +312,7 @@ export default function QuizMode() {
         text: 'text-emerald-400',
         bg: 'bg-emerald-500/10',
         border: 'border-emerald-500/30',
-        glow: 'rgba(16, 185, 129, 0.35)',
+        glow: 'rgba(16, 185, 129, 0.25)',
         badge: 'text-emerald-300 bg-emerald-500/20 border-emerald-500/40',
         headline: 'Outstanding Mastery!',
         feedback: 'You have demonstrated a stellar understanding of the core concepts.',
@@ -324,7 +324,7 @@ export default function QuizMode() {
         text: 'text-amber-400',
         bg: 'bg-amber-500/10',
         border: 'border-amber-500/30',
-        glow: 'rgba(245, 158, 11, 0.35)',
+        glow: 'rgba(245, 158, 11, 0.25)',
         badge: 'text-amber-300 bg-amber-500/20 border-amber-500/40',
         headline: 'Solid Progress!',
         feedback: 'Good work! Review the explanations below to turn weak spots into strengths.',
@@ -335,7 +335,7 @@ export default function QuizMode() {
       text: 'text-rose-400',
       bg: 'bg-rose-500/10',
       border: 'border-rose-500/30',
-      glow: 'rgba(244, 63, 94, 0.35)',
+      glow: 'rgba(244, 63, 94, 0.25)',
       badge: 'text-rose-300 bg-rose-500/20 border-rose-500/40',
       headline: 'Needs Review',
       feedback: 'Take some time to re-read your uploaded notes and try the quiz again.',
@@ -364,18 +364,15 @@ export default function QuizMode() {
           className="space-y-6"
         >
           {/* Header Banner */}
-          <div className="glass-card p-6 md:p-8 relative overflow-hidden">
-            <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-
+          <div className="studio-card p-6 md:p-8 relative overflow-hidden border border-white/[0.08]">
             <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
               <div className="space-y-2">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/15 text-purple-300 border border-purple-500/30">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/15 text-blue-300 border border-blue-500/30 font-mono">
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>AI-Powered Knowledge Check</span>
+                  <span>AI Knowledge Evaluation</span>
                 </div>
                 <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white">
-                  Interactive <span className="gradient-text">Quiz Mode</span>
+                  Interactive <span className="brand-title">Quiz Mode</span>
                 </h1>
                 <p className="text-sm md:text-base text-slate-300 max-w-xl leading-relaxed">
                   Challenge your comprehension with adaptive multiple choice questions synthesized
@@ -384,11 +381,11 @@ export default function QuizMode() {
               </div>
 
               {/* Status Badge */}
-              <div className="glass-card p-4 rounded-xl border border-slate-700/60 bg-slate-900/60 flex flex-col gap-1.5 shrink-0 min-w-[200px]">
+              <div className="studio-card p-4 rounded-xl border border-white/[0.08] bg-[#12141e] flex flex-col gap-1.5 shrink-0 min-w-[200px]">
                 <div className="flex items-center justify-between text-xs text-slate-400">
                   <span>Knowledge Base:</span>
                   <span
-                    className={`font-semibold ${
+                    className={`font-semibold font-mono ${
                       documents.length > 0 ? 'text-emerald-400' : 'text-amber-400'
                     }`}
                   >
@@ -430,7 +427,7 @@ export default function QuizMode() {
 
           {/* If No Documents Uploaded */}
           {documents.length === 0 && (
-            <div className="glass-card p-5 border border-amber-500/30 bg-amber-500/5 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="studio-card p-5 border border-amber-500/30 bg-amber-500/[0.06] rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex items-start gap-3">
                 <AlertCircle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
                 <div>
@@ -446,7 +443,7 @@ export default function QuizMode() {
               <button
                 type="button"
                 onClick={handleLoadDemoQuestions}
-                className="shrink-0 px-4 py-2 rounded-lg text-xs font-semibold bg-amber-500/20 text-amber-200 hover:bg-amber-500/30 border border-amber-500/40 transition-all flex items-center gap-1.5"
+                className="shrink-0 px-4 py-2 rounded-lg text-xs font-semibold bg-amber-500/20 text-amber-200 hover:bg-amber-500/30 border border-amber-500/40 transition-all flex items-center gap-1.5 cursor-pointer"
               >
                 <Play className="w-3.5 h-3.5" />
                 <span>Try Demo Quiz</span>
@@ -457,9 +454,9 @@ export default function QuizMode() {
           {/* Actions & Start Options */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Generate Quiz Card */}
-            <div className="glass-card p-6 flex flex-col justify-between gap-4 border border-purple-500/20 hover:border-purple-500/40 transition-all">
+            <div className="studio-card p-6 flex flex-col justify-between gap-4 border border-white/[0.08] hover:border-blue-500/40 transition-all">
               <div className="space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-400">
+                <div className="w-10 h-10 rounded-xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400">
                   <Sparkles className="w-5 h-5" />
                 </div>
                 <h3 className="text-lg font-bold text-white">Generate From Notes</h3>
@@ -473,16 +470,16 @@ export default function QuizMode() {
                 type="button"
                 disabled={isGenerating || documents.length === 0}
                 onClick={handleGenerateQuiz}
-                className="w-full py-3 px-4 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-purple-600/25 flex items-center justify-center gap-2 group cursor-pointer"
+                className="w-full py-3 px-4 rounded-xl font-semibold text-sm text-white bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md shadow-blue-600/25 flex items-center justify-center gap-2 group cursor-pointer active:scale-95"
               >
                 {isGenerating ? (
                   <>
-                    <Loader2 className="w-4 h-4 animate-spin text-purple-200" />
+                    <Loader2 className="w-4 h-4 animate-spin text-white" />
                     <span>Synthesizing Questions with AI...</span>
                   </>
                 ) : (
                   <>
-                    <Sparkles className="w-4 h-4 text-purple-200 group-hover:rotate-12 transition-transform" />
+                    <Sparkles className="w-4 h-4 text-blue-200 group-hover:rotate-12 transition-transform" />
                     <span>Generate Quiz</span>
                   </>
                 )}
@@ -490,9 +487,9 @@ export default function QuizMode() {
             </div>
 
             {/* Existing Quiz / Instant Demo Card */}
-            <div className="glass-card p-6 flex flex-col justify-between gap-4 border border-indigo-500/20 hover:border-indigo-500/40 transition-all">
+            <div className="studio-card p-6 flex flex-col justify-between gap-4 border border-white/[0.08] hover:border-blue-500/40 transition-all">
               <div className="space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
                   <Play className="w-5 h-5" />
                 </div>
                 <h3 className="text-lg font-bold text-white">
@@ -510,7 +507,7 @@ export default function QuizMode() {
                   <button
                     type="button"
                     onClick={() => startQuizSession(quizQuestions)}
-                    className="flex-1 py-3 px-4 rounded-xl font-semibold text-sm text-white bg-indigo-600 hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-600/25 flex items-center justify-center gap-2 cursor-pointer"
+                    className="flex-1 py-3 px-4 rounded-xl font-semibold text-sm text-white bg-blue-600 hover:bg-blue-500 transition-all shadow-md shadow-blue-600/25 flex items-center justify-center gap-2 cursor-pointer active:scale-95"
                   >
                     <Play className="w-4 h-4" />
                     <span>Start Quiz ({quizQuestions.length} Qs)</span>
@@ -519,7 +516,7 @@ export default function QuizMode() {
                     type="button"
                     onClick={handleLoadDemoQuestions}
                     title="Load sample questions"
-                    className="py-3 px-3 rounded-xl text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-all cursor-pointer"
+                    className="py-3 px-3 rounded-xl text-slate-300 hover:text-white bg-[#161926] hover:bg-[#1a1e2e] border border-white/[0.08] transition-all cursor-pointer active:scale-95"
                   >
                     <RotateCcw className="w-4 h-4" />
                   </button>
@@ -528,9 +525,9 @@ export default function QuizMode() {
                 <button
                   type="button"
                   onClick={handleLoadDemoQuestions}
-                  className="w-full py-3 px-4 rounded-xl font-semibold text-sm text-white bg-slate-800 hover:bg-slate-700 border border-slate-700/80 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full py-3 px-4 rounded-xl font-semibold text-sm text-white bg-[#161926] hover:bg-[#1a1e2e] border border-white/[0.08] transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
                 >
-                  <Play className="w-4 h-4 text-purple-400" />
+                  <Play className="w-4 h-4 text-amber-400" />
                   <span>Start Demo Quiz</span>
                 </button>
               )}
@@ -565,9 +562,9 @@ export default function QuizMode() {
               return (
                 <div
                   key={idx}
-                  className="glass-card p-3.5 border border-slate-800/80 flex flex-col gap-1.5"
+                  className="studio-card p-3.5 border border-white/[0.08] flex flex-col gap-1.5"
                 >
-                  <Icon className="w-4 h-4 text-purple-400" />
+                  <Icon className="w-4 h-4 text-blue-400" />
                   <span className="text-xs font-semibold text-slate-200">{feature.title}</span>
                   <span className="text-[11px] text-slate-400">{feature.desc}</span>
                 </div>
@@ -590,9 +587,9 @@ export default function QuizMode() {
           className="space-y-5"
         >
           {/* Top Control Bar: Topic, Counter, and Timer */}
-          <div className="glass-card p-4 flex items-center justify-between gap-4 flex-wrap">
+          <div className="studio-card p-4 flex items-center justify-between gap-4 flex-wrap border border-white/[0.08]">
             <div className="flex items-center gap-2.5">
-              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">
+              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/15 text-blue-300 border border-blue-500/30 font-mono">
                 {currentQuestion.topic || 'General Knowledge'}
               </span>
               <span className="text-xs font-medium text-slate-400">
@@ -603,17 +600,17 @@ export default function QuizMode() {
 
             <div className="flex items-center gap-3">
               {/* Live Timer (mm:ss) */}
-              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/80 border border-indigo-500/30 text-indigo-300 text-xs font-mono font-semibold shadow-inner">
-                <Clock className="w-3.5 h-3.5 text-indigo-400 animate-pulse" />
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#090A0F] border border-blue-500/30 text-blue-300 text-xs font-mono font-semibold shadow-inner">
+                <Clock className="w-3.5 h-3.5 text-blue-400 animate-pulse" />
                 <span>{formatTime(elapsedTime)}</span>
               </div>
             </div>
           </div>
 
           {/* Progress Bar */}
-          <div className="w-full bg-slate-900/80 rounded-full h-2.5 p-0.5 border border-slate-800 overflow-hidden">
+          <div className="w-full bg-[#090A0F] rounded-full h-2.5 p-0.5 border border-white/[0.08] overflow-hidden">
             <motion.div
-              className="h-full bg-gradient-to-r from-purple-500 via-indigo-500 to-purple-400 rounded-full shadow-sm shadow-purple-500/50"
+              className="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-400 rounded-full shadow-sm shadow-blue-500/30"
               initial={{ width: 0 }}
               animate={{
                 width: `${((currentIndex + (selectedOption !== null ? 1 : 0.5)) / totalQuestions) * 100}%`,
@@ -623,10 +620,10 @@ export default function QuizMode() {
           </div>
 
           {/* Question Card */}
-          <div className="glass-card p-6 md:p-8 space-y-6 border border-slate-700/50">
+          <div className="studio-card p-6 md:p-8 space-y-6 border border-white/[0.08]">
             {/* Prompt */}
             <div className="space-y-1">
-              <span className="text-xs font-bold text-purple-400 uppercase tracking-wider">
+              <span className="text-xs font-bold text-blue-400 uppercase tracking-wider font-mono">
                 Question {currentIndex + 1}
               </span>
               <h2 className="text-lg md:text-xl font-bold text-white leading-relaxed">
@@ -643,18 +640,18 @@ export default function QuizMode() {
 
                 // Color styles: correct=green, wrong=red
                 let buttonStyle =
-                  'border-slate-700/60 bg-slate-900/40 text-slate-200 hover:border-purple-500/50 hover:bg-slate-800/60';
-                let badgeStyle = 'bg-slate-800 text-slate-300 border-slate-700';
+                  'border-white/[0.08] bg-white/[0.02] text-slate-200 hover:border-blue-500/40 hover:bg-white/[0.04]';
+                let badgeStyle = 'bg-[#090A0F] text-slate-300 border-white/[0.1]';
 
                 if (hasAnswered) {
                   if (isSelected) {
                     if (isCorrect) {
                       buttonStyle =
-                        'border-emerald-500 bg-emerald-500/20 text-emerald-200 shadow-md shadow-emerald-500/10';
+                        'border-emerald-500 bg-emerald-500/15 text-emerald-200 shadow-sm';
                       badgeStyle = 'bg-emerald-500 text-white border-emerald-400';
                     } else {
                       buttonStyle =
-                        'border-rose-500 bg-rose-500/20 text-rose-200 shadow-md shadow-rose-500/10';
+                        'border-rose-500 bg-rose-500/15 text-rose-200 shadow-sm';
                       badgeStyle = 'bg-rose-500 text-white border-rose-400';
                     }
                   } else if (isCorrect) {
@@ -663,8 +660,8 @@ export default function QuizMode() {
                       'border-emerald-500/70 bg-emerald-500/10 text-emerald-300 shadow-sm';
                     badgeStyle = 'bg-emerald-500/30 text-emerald-300 border-emerald-500/50';
                   } else {
-                    buttonStyle = 'opacity-40 border-slate-800/80 bg-slate-950/20 text-slate-500';
-                    badgeStyle = 'bg-slate-900 text-slate-600 border-slate-800';
+                    buttonStyle = 'opacity-40 border-white/[0.04] bg-[#090A0F]/40 text-slate-500';
+                    badgeStyle = 'bg-[#090A0F] text-slate-600 border-white/[0.05]';
                   }
                 }
 
@@ -676,11 +673,11 @@ export default function QuizMode() {
                     type="button"
                     disabled={hasAnswered}
                     onClick={() => handleSelectOption(optionIdx)}
-                    className={`w-full min-h-[52px] p-4 rounded-xl border text-left flex items-center justify-between gap-4 transition-all duration-200 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-[0.99] ${buttonStyle}`}
+                    className={`w-full min-h-[52px] p-4 rounded-xl border text-left flex items-center justify-between gap-4 transition-all duration-200 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 active:scale-[0.99] ${buttonStyle}`}
                   >
                     <div className="flex items-center gap-3.5 min-w-0">
                       <span
-                        className={`w-7 h-7 rounded-lg text-xs font-bold flex items-center justify-center shrink-0 border transition-colors ${badgeStyle}`}
+                        className={`w-7 h-7 rounded-lg text-xs font-bold font-mono flex items-center justify-center shrink-0 border transition-colors ${badgeStyle}`}
                       >
                         {optionLetter}
                       </span>
@@ -759,7 +756,7 @@ export default function QuizMode() {
                 <button
                   type="button"
                   onClick={handleNextQuestion}
-                  className="px-6 py-3 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 shadow-lg shadow-purple-600/25 transition-all flex items-center gap-2 group cursor-pointer"
+                  className="px-6 py-3 rounded-xl font-semibold text-sm text-white bg-blue-600 hover:bg-blue-500 shadow-md shadow-blue-600/25 transition-all flex items-center gap-2 group cursor-pointer active:scale-95"
                 >
                   <span>{isLastQuestion ? 'View Results' : 'Next Question'}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -783,17 +780,12 @@ export default function QuizMode() {
           className="space-y-6"
         >
           {/* Main Results Hero Card */}
-          <div className="glass-card p-6 md:p-8 relative overflow-hidden border border-slate-700/60">
-            <div
-              className="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 rounded-full blur-3xl pointer-events-none"
-              style={{ backgroundColor: scoreTheme.glow }}
-            />
-
+          <div className="studio-card-elevated p-6 md:p-8 relative overflow-hidden border border-white/[0.1]">
             <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
               {/* Left Column: Trophy & Message */}
               <div className="space-y-3 text-center md:text-left max-w-md">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                  <Trophy className="w-3.5 h-3.5 text-yellow-400" />
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/30 font-mono">
+                  <Trophy className="w-3.5 h-3.5 text-amber-400" />
                   <span>Quiz Summary</span>
                 </div>
                 <h1 className="text-2xl md:text-3xl font-extrabold text-white">
@@ -806,18 +798,18 @@ export default function QuizMode() {
                   <button
                     type="button"
                     onClick={handleRetakeQuiz}
-                    className="px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-slate-800 hover:bg-slate-700 border border-slate-700/80 transition-all flex items-center gap-2 cursor-pointer shadow-md"
+                    className="px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-[#161926] hover:bg-[#1a1e2e] border border-white/[0.08] transition-all flex items-center gap-2 cursor-pointer shadow-sm active:scale-95"
                   >
-                    <RotateCcw className="w-4 h-4 text-purple-400" />
+                    <RotateCcw className="w-4 h-4 text-blue-400" />
                     <span>Retake Quiz</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={handleNewQuiz}
-                    className="px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 transition-all shadow-lg shadow-purple-600/25 flex items-center gap-2 cursor-pointer"
+                    className="px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-all shadow-md shadow-blue-600/25 flex items-center gap-2 cursor-pointer active:scale-95"
                   >
-                    <Sparkles className="w-4 h-4 text-purple-200" />
+                    <Sparkles className="w-4 h-4 text-blue-200" />
                     <span>New Quiz</span>
                   </button>
                 </div>
@@ -851,7 +843,6 @@ export default function QuizMode() {
                       animate={{ strokeDashoffset }}
                       transition={{ duration: 1.2, ease: 'easeOut' }}
                       strokeLinecap="round"
-                      style={{ filter: `drop-shadow(0 0 8px ${scoreTheme.glow})` }}
                     />
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
@@ -875,29 +866,29 @@ export default function QuizMode() {
 
           {/* Quick Stats Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="glass-card p-4 flex flex-col items-center justify-center text-center gap-1">
-              <Trophy className="w-5 h-5 text-purple-400 mb-1" />
+            <div className="studio-card p-4 flex flex-col items-center justify-center text-center gap-1 border border-white/[0.08]">
+              <Trophy className="w-5 h-5 text-amber-400 mb-1" />
               <span className="text-xl font-bold text-white">
                 {correctCount} / {totalQuestions}
               </span>
               <span className="text-xs text-slate-400">Total Score</span>
             </div>
 
-            <div className="glass-card p-4 flex flex-col items-center justify-center text-center gap-1">
+            <div className="studio-card p-4 flex flex-col items-center justify-center text-center gap-1 border border-white/[0.08]">
               <CheckCircle className="w-5 h-5 text-emerald-400 mb-1" />
               <span className="text-xl font-bold text-emerald-400">{scorePercentage}%</span>
               <span className="text-xs text-slate-400">Accuracy Rate</span>
             </div>
 
-            <div className="glass-card p-4 flex flex-col items-center justify-center text-center gap-1">
-              <Clock className="w-5 h-5 text-indigo-400 mb-1" />
+            <div className="studio-card p-4 flex flex-col items-center justify-center text-center gap-1 border border-white/[0.08]">
+              <Clock className="w-5 h-5 text-blue-400 mb-1" />
               <span className="text-xl font-bold text-white font-mono">
                 {formatTime(elapsedTime)}
               </span>
               <span className="text-xs text-slate-400">Time Taken</span>
             </div>
 
-            <div className="glass-card p-4 flex flex-col items-center justify-center text-center gap-1">
+            <div className="studio-card p-4 flex flex-col items-center justify-center text-center gap-1 border border-white/[0.08]">
               <XCircle className="w-5 h-5 text-rose-400 mb-1" />
               <span className="text-xl font-bold text-rose-400">
                 {totalQuestions - correctCount}
@@ -911,7 +902,7 @@ export default function QuizMode() {
             <div className="flex items-center justify-between">
               <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <span>Per-Question Review</span>
-                <span className="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">
+                <span className="text-xs px-2 py-0.5 rounded-full bg-[#12141e] text-slate-400 border border-white/[0.08] font-mono">
                   {quizQuestions.length} Questions
                 </span>
               </h3>
@@ -927,18 +918,18 @@ export default function QuizMode() {
                 return (
                   <div
                     key={q.id || idx}
-                    className={`glass-card p-5 border transition-all ${
+                    className={`studio-card p-5 border transition-all ${
                       wasCorrect
-                        ? 'border-emerald-500/25 bg-emerald-950/10'
-                        : 'border-rose-500/25 bg-rose-950/10'
+                        ? 'border-emerald-500/20 bg-emerald-950/10'
+                        : 'border-rose-500/20 bg-rose-950/10'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div className="space-y-1">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-xs font-bold text-purple-400">Question {idx + 1}</span>
+                          <span className="text-xs font-bold text-blue-400 font-mono">Question {idx + 1}</span>
                           {q.topic && (
-                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30 font-medium">
+                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/30 font-medium font-mono">
                               {q.topic}
                             </span>
                           )}
@@ -950,12 +941,12 @@ export default function QuizMode() {
 
                       <div className="shrink-0">
                         {wasCorrect ? (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono">
                             <CheckCircle className="w-3.5 h-3.5" />
                             <span>Correct</span>
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-500/20 text-rose-300 border border-rose-500/40">
+                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-500/20 text-rose-300 border border-rose-500/40 font-mono">
                             <XCircle className="w-3.5 h-3.5" />
                             <span>Incorrect</span>
                           </span>
@@ -969,7 +960,7 @@ export default function QuizMode() {
                         const isChosen = chosenIdx === optIdx;
                         const isCorrectOption = optIdx === q.correctAnswer;
 
-                        let optBadgeClass = 'border-slate-800 bg-slate-900/40 text-slate-400';
+                        let optBadgeClass = 'border-white/[0.08] bg-[#090A0F]/60 text-slate-400';
                         if (isChosen && wasCorrect) {
                           optBadgeClass =
                             'border-emerald-500/60 bg-emerald-500/15 text-emerald-200 font-semibold';
@@ -987,24 +978,24 @@ export default function QuizMode() {
                             className={`p-2.5 rounded-lg border flex items-center justify-between gap-2 ${optBadgeClass}`}
                           >
                             <div className="flex items-center gap-2 min-w-0">
-                              <span className="font-bold opacity-70">
+                              <span className="font-bold opacity-70 font-mono">
                                 {String.fromCharCode(65 + optIdx)}.
                               </span>
                               <span className="truncate">{optText}</span>
                             </div>
                             <div className="shrink-0">
                               {isChosen && wasCorrect && (
-                                <span className="text-[10px] text-emerald-400 font-bold">
+                                <span className="text-[10px] text-emerald-400 font-bold font-mono">
                                   Your Choice
                                 </span>
                               )}
                               {isChosen && !wasCorrect && (
-                                <span className="text-[10px] text-rose-400 font-bold">
+                                <span className="text-[10px] text-rose-400 font-bold font-mono">
                                   Your Choice
                                 </span>
                               )}
                               {!isChosen && isCorrectOption && (
-                                <span className="text-[10px] text-emerald-400 font-bold">
+                                <span className="text-[10px] text-emerald-400 font-bold font-mono">
                                   Correct Answer
                                 </span>
                               )}
@@ -1015,10 +1006,10 @@ export default function QuizMode() {
                     </div>
 
                     {/* Explanation */}
-                    <div className="mt-3.5 p-3 rounded-lg bg-slate-900/60 border border-slate-800 text-xs text-slate-300 leading-relaxed flex items-start gap-2">
-                      <Sparkles className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
+                    <div className="mt-3.5 p-3 rounded-lg bg-[#090A0F]/60 border border-white/[0.08] text-xs text-slate-300 leading-relaxed flex items-start gap-2">
+                      <Sparkles className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                       <div>
-                        <strong className="text-purple-300">Explanation: </strong>
+                        <strong className="text-amber-300">Explanation: </strong>
                         {q.explanation}
                       </div>
                     </div>
