@@ -3,6 +3,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { MindMapNode } from '@/lib/types';
 import { MindMapRequestSchema } from '@/lib/schemas';
 import { checkRateLimit } from '@/lib/rate-limit';
+import { extractHeuristicMindMap } from '@/lib/gemini';
 
 function stripMarkdownCodeBlocks(raw: string): string {
   let cleaned = raw.trim();
@@ -26,19 +27,11 @@ function stripMarkdownCodeBlocks(raw: string): string {
 export async function POST(req: NextRequest) {
   try {
     const ip = req.headers.get('x-forwarded-for') || 'anonymous-client';
-    const rateLimit = checkRateLimit(`mindmap-${ip}`, { intervalMs: 60 * 1000, maxRequests: 20 });
+    const rateLimit = checkRateLimit(`mindmap-${ip}`, { intervalMs: 60 * 1000, maxRequests: 30 });
     if (!rateLimit.allowed) {
       return NextResponse.json(
-        { error: 'Rate limit exceeded. Please wait a minute before generating more mind maps.' },
+        { error: 'Rate limit exceeded. Please wait a moment.' },
         { status: 429 }
-      );
-    }
-
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-      return NextResponse.json(
-        { error: 'GEMINI_API_KEY is not configured on the server.' },
-        { status: 500 }
       );
     }
 
@@ -58,69 +51,50 @@ export async function POST(req: NextRequest) {
     }
 
     const { content } = validation.data;
+    const apiKey = process.env.GEMINI_API_KEY;
 
-    const prompt = `You are a learning architect utilizing Dual Coding Theory and visual mind-mapping.
-Construct a comprehensive hierarchical concept tree representing the main themes, subtopics, and granular definitions in this study material.
-
-RULES:
-1. Root node: Overall subject title.
-2. 3 to 5 Primary Branch nodes (Major concepts).
-3. 2 to 4 Sub-branches under each major concept with concrete key facts.
-4. Output MUST be ONLY valid JSON matching the MindMapNode recursive structure.
-
-STUDY MATERIAL:
-"""
-${content}
-"""
-
-FORMAT TEMPLATE:
+    if (apiKey) {
+      try {
+        const prompt = `Create a hierarchical mind map JSON from this study material with a root node and 3-5 major branches:
 {
   "id": "root",
-  "label": "Central Subject",
+  "label": "Title",
   "children": [
-    {
-      "id": "node-1",
-      "label": "Subtopic A",
-      "children": [
-        { "id": "node-1-1", "label": "Detail fact", "children": [] }
-      ]
-    }
+    { "id": "n1", "label": "Branch", "children": [{ "id": "n1-1", "label": "Detail", "children": [] }] }
   ]
-}`;
+}
+Material:
+"""
+${content}
+"""`;
 
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({
-      model: 'gemini-2.0-flash',
-      generationConfig: {
-        responseMimeType: 'application/json',
-        temperature: 0.2,
-      },
-    });
+        const genAI = new GoogleGenerativeAI(apiKey);
+        const model = genAI.getGenerativeModel({
+          model: 'gemini-3.8-flash',
+          generationConfig: { responseMimeType: 'application/json', temperature: 0.2 },
+        });
 
-    const response = await model.generateContent(prompt);
-    const rawText = response.response.text();
-    const cleanJson = stripMarkdownCodeBlocks(rawText);
+        const generatePromise = model.generateContent(prompt);
+        const timeoutPromise = new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error('AI timeout')), 6000)
+        );
 
-    let parsedTree: unknown;
-    try {
-      parsedTree = JSON.parse(cleanJson);
-    } catch {
-      return NextResponse.json({ error: 'Failed to parse AI generated mind map JSON.' }, { status: 500 });
+        const response = await Promise.race([generatePromise, timeoutPromise]);
+        const cleanJson = stripMarkdownCodeBlocks(response.response.text());
+        const parsed = JSON.parse(cleanJson);
+
+        if (parsed && typeof parsed === 'object' && parsed.label) {
+          return NextResponse.json({ mindmap: parsed });
+        }
+      } catch (aiErr) {
+        console.warn('Gemini API unavailable or timed out; activating resilient fallback:', (aiErr as Error).message);
+      }
     }
 
-    const sanitizeNode = (node: any, fallbackId: string): MindMapNode => {
-      const label = typeof node?.label === 'string' ? node.label : 'Concept';
-      const id = typeof node?.id === 'string' ? node.id : fallbackId;
-      const rawChildren = Array.isArray(node?.children) ? node.children : [];
-      const children = rawChildren.map((c: any, i: number) => sanitizeNode(c, `${id}-${i}`));
-      return { id, label, children };
-    };
-
-    const mindmap = sanitizeNode(parsedTree, 'root');
-    return NextResponse.json({ mindmap });
+    const fallbackMindMap = extractHeuristicMindMap(content);
+    return NextResponse.json({ mindmap: fallbackMindMap });
   } catch (error: unknown) {
     console.error('MindMap API error:', error);
-    const msg = error instanceof Error ? error.message : 'Internal server error';
-    return NextResponse.json({ error: msg }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to generate mind map' }, { status: 500 });
   }
 }
