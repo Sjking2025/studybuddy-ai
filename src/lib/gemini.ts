@@ -197,3 +197,48 @@ export function extractHeuristicMindMap(content: string) {
     ],
   };
 }
+
+/**
+ * High-yield heuristic study plan generator for guaranteed resilience.
+ * Breaks down study material into structured, time-blocked revision sprints.
+ */
+export function extractHeuristicStudyPlan(content: string, hoursPerDay = 2) {
+  const lines = content
+    .split('\n')
+    .map((l) => l.trim())
+    .filter((l) => l.length > 8);
+
+  const topics = lines.slice(0, 6);
+  if (topics.length === 0) {
+    topics.push('Fundamental Core Principles', 'Detailed Mechanisms and Analysis', 'Practical Applications and Review');
+  }
+
+  const sprintDurations = ['30 mins', '45 mins', '60 mins'];
+  const priorities: Array<'high' | 'medium' | 'low'> = ['high', 'medium', 'high', 'low', 'medium', 'high'];
+
+  return topics.map((line, idx) => {
+    const words = line.split(' ');
+    const topicTitle = words.slice(0, 5).join(' ');
+    return {
+      id: `step-${Date.now()}-${idx}`,
+      topic: topicTitle || `Study Sprint ${idx + 1}`,
+      duration: sprintDurations[idx % sprintDurations.length],
+      priority: priorities[idx % priorities.length],
+      completed: false,
+      description: `Targeted review: ${line.length > 100 ? line.slice(0, 100) + '...' : line}. Focus on active recall and self-testing.`,
+    };
+  });
+}
+
+/**
+ * Sanitizes untrusted user inputs before LLM prompt injection and API ingestion.
+ * Strips null bytes, non-printable control characters, and isolates delimiter tags.
+ */
+export function sanitizePromptInput(input: string): string {
+  if (!input || typeof input !== 'string') return '';
+  return input
+    .replace(/\0/g, '') // Remove null bytes
+    .replace(/[\x01-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '') // Remove ASCII control characters
+    .replace(/<<<|>>>/g, '') // Neutralize delimiter injection attempts
+    .trim();
+}

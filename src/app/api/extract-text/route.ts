@@ -1,15 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 // @ts-expect-error - import direct lib to bypass pdf-parse index.js debug block
 import pdf from 'pdf-parse/lib/pdf-parse.js';
+import { checkRateLimit } from '@/lib/rate-limit';
 
-const MAX_FILE_SIZE = 50 * 1024 * 1024;
+const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15MB safe threshold for serverless stability
 
 /**
  * Heuristic text extractor for uncompressed or raw PDF streams.
  * Acts as a resilient fallback when XRef tables are non-standard.
  */
-function extractRawPdfStrings(buffer: Buffer): string {
+function extractRawPdfStrings(data: Uint8Array): string {
   try {
+    const buffer = Buffer.from(data);
     const str = buffer.toString('binary');
     const textChunks: string[] = [];
 
@@ -42,6 +44,16 @@ function extractRawPdfStrings(buffer: Buffer): string {
 
 export async function POST(req: NextRequest) {
   try {
+    const rawIp = req.headers.get('x-forwarded-for') || 'anonymous-client';
+    const clientIp = rawIp.split(',')[0].trim();
+    const rateLimit = checkRateLimit(`extract-text-${clientIp}`, { intervalMs: 60 * 1000, maxRequests: 25 });
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded for file processing. Please wait a moment.' },
+        { status: 429 }
+      );
+    }
+
     let formData: FormData;
     try {
       formData = await req.formData();
@@ -66,18 +78,20 @@ export async function POST(req: NextRequest) {
     }
 
     if (file.size > MAX_FILE_SIZE) {
-      return NextResponse.json({ error: 'File too large (max 50MB).' }, { status: 413 });
+      return NextResponse.json({ error: 'File too large (max 15MB).' }, { status: 413 });
     }
 
     const fileName = (file.name || '').toLowerCase();
     const fileType = (file.type || '').toLowerCase();
     const arrayBuffer = await file.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
+    const uint8Array = new Uint8Array(arrayBuffer);
+    const buffer = Buffer.from(uint8Array);
 
     const isPdf =
       fileType === 'application/pdf' ||
       fileName.endsWith('.pdf') ||
-      (buffer.length >= 5 && buffer.subarray(0, 5).toString('ascii') === '%PDF-');
+      (uint8Array.length >= 5 &&
+        String.fromCharCode(...uint8Array.subarray(0, 5)) === '%PDF-');
 
     if (isPdf) {
       // Primary attempt: standard PDF parsing
@@ -88,7 +102,7 @@ export async function POST(req: NextRequest) {
 
         if (!text) {
           // Attempt raw stream fallback
-          text = extractRawPdfStrings(buffer);
+          text = extractRawPdfStrings(uint8Array);
         }
 
         if (text) {
@@ -100,15 +114,10 @@ export async function POST(req: NextRequest) {
           pageCount,
         });
       } catch (pdfErr) {
-        console.warn('Standard PDF parser encountered non-fatal issue, attempting stream extraction:', (pdfErr as Error).message);
-        
-        // Resilient stream fallback
-        const fallbackText = extractRawPdfStrings(buffer);
-        if (fallbackText && fallbackText.length > 20) {
-          return NextResponse.json({
-            text: fallbackText,
-            pageCount: 1,
-          });
+        console.warn('Standard pdf-parse failed, attempting stream fallback:', pdfErr);
+        const fallbackText = extractRawPdfStrings(uint8Array);
+        if (fallbackText) {
+          return NextResponse.json({ text: fallbackText, pageCount: 1 });
         }
 
         return NextResponse.json(
@@ -121,7 +130,7 @@ export async function POST(req: NextRequest) {
     // Text & Markdown files (.txt, .md, .json, .csv)
     try {
       const decoder = new TextDecoder('utf-8', { fatal: false });
-      const text = decoder.decode(buffer);
+      const text = decoder.decode(uint8Array);
       return NextResponse.json({ text: text.trim(), pageCount: 1 });
     } catch {
       return NextResponse.json(

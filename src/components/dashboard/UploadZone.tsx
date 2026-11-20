@@ -457,13 +457,13 @@ Data structures:
               {/* Mini format pills */}
               <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-slate-800/80 border border-slate-700 text-slate-300">
-                  <FileText className="w-3.5 h-3.5 text-purple-400" /> PDF Slides & Textbooks
+                  <FileText className="w-3.5 h-3.5 text-blue-400" /> PDF Slides &amp; Textbooks
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-slate-800/80 border border-slate-700 text-slate-300">
                   <FileCode className="w-3.5 h-3.5 text-indigo-400" /> Markdown Notes (.md)
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-slate-800/80 border border-slate-700 text-slate-300">
-                  <AlignLeft className="w-3.5 h-3.5 text-violet-400" /> Plain Text (.txt)
+                  <AlignLeft className="w-3.5 h-3.5 text-amber-400" /> Plain Text (.txt)
                 </span>
               </div>
             </div>
@@ -483,7 +483,7 @@ Data structures:
                   value={pastedTitle}
                   onChange={(e) => setPastedTitle(e.target.value)}
                   placeholder="e.g., Biology Chapter 4: Photosynthesis & Cellular Respiration"
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700/80 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 transition-all"
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700/80 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 transition-all"
                 />
               </div>
 
@@ -505,7 +505,7 @@ Data structures:
                   value={pastedContent}
                   onChange={(e) => setPastedContent(e.target.value)}
                   placeholder="Paste your syllabus, lecture transcription, reading summary, or study guide here..."
-                  className="w-full p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 transition-all resize-y leading-relaxed font-sans"
+                  className="w-full p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 transition-all resize-y leading-relaxed font-sans"
                 />
               </div>
 
@@ -528,7 +528,7 @@ Data structures:
                   type="button"
                   onClick={handleSavePastedNotes}
                   disabled={!pastedContent.trim()}
-                  className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-purple-600/20 transition-all active:scale-95"
+                  className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-600/20 transition-all active:scale-95"
                 >
                   <FileText className="w-4 h-4" />
                   <span>Add Notes Document</span>

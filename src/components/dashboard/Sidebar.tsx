@@ -86,7 +86,7 @@ export default function Sidebar({ onNavigate }: SidebarProps) {
         </div>
 
         {/* Navigation List */}
-        <nav className="p-3 space-y-1 overflow-y-auto max-h-[calc(100vh-250px)]">
+        <nav aria-label="Main Navigation" className="p-3 space-y-1 overflow-y-auto max-h-[calc(100vh-250px)]">
           <div className="px-3 py-1.5 text-[10px] font-mono font-semibold text-slate-500 uppercase tracking-widest">
             Workspace
           </div>

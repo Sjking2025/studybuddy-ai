@@ -184,6 +184,8 @@ export default function LandingPage() {
           </div>
         </header>
 
+        {/* Semantic Main Content Wrapper for Accessibility */}
+        <main id="main-content" tabIndex={-1} className="outline-none">
         {/* 1. HERO SECTION */}
         <section className="relative pt-16 sm:pt-24 pb-20 sm:pb-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col items-center text-center">
           {/* Badge */}
@@ -559,6 +561,7 @@ export default function LandingPage() {
             </Link>
           </motion.div>
         </section>
+        </main>
 
         {/* 4. FOOTER SECTION */}
         <footer
