@@ -245,6 +245,58 @@ export default function UploadZone() {
           Feed your lecture slides, textbook excerpts, or custom notes into StudyBuddy AI.
           Our engine extracts and indexes content for flashcards, quizzes, mind maps, and instant AI tutoring.
         </p>
+
+        {/* 1-Click Sample Material Presets for Evaluators */}
+        <div className="pt-2 flex flex-wrap items-center gap-2">
+          <span className="text-xs text-purple-300 font-semibold flex items-center gap-1">
+            <Sparkles className="w-3.5 h-3.5" /> Evaluator Quick-Start:
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              addDocument({
+                id: generateId(),
+                name: 'Biology_Cell_Metabolism.txt',
+                content: `Cellular respiration is a metabolic pathway that breaks down glucose and produces ATP. The stages of cellular respiration include glycolysis, pyruvate oxidation, the citric acid (Krebs) cycle, and oxidative phosphorylation.
+Glycolysis takes place in the cytoplasm and converts glucose into two pyruvate molecules, generating 2 ATP and 2 NADH without requiring oxygen.
+The Krebs cycle occurs in the mitochondrial matrix, producing electron carriers (NADH and FADH2) along with 2 ATP.
+Oxidative phosphorylation happens in the inner mitochondrial membrane via the electron transport chain, generating roughly 28 to 32 ATP per glucose molecule using ATP synthase powered by a proton gradient.
+Photosynthesis is the reverse energy-harnessing process occurring in chloroplasts: 6CO2 + 6H2O + light energy -> C6H12O6 + 6O2.`,
+                uploadedAt: new Date(),
+                pageCount: 1,
+              });
+              setSuccessMessage('Loaded Biology sample notes! You can now test Chat, Flashcards, Quiz & Mind Map.');
+            }}
+            className="px-3 py-1.5 rounded-lg text-xs font-medium glass-card border border-purple-500/30 text-purple-200 hover:bg-purple-500/20 hover:text-white transition-all focus-visible:ring-2 focus-visible:ring-purple-500"
+          >
+            Load Biology Notes (Sample)
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              addDocument({
+                id: generateId(),
+                name: 'Computer_Science_Algorithms.txt',
+                content: `Asymptotic analysis evaluates algorithmic efficiency as input size N grows.
+Big-O Notation represents the worst-case upper bound.
+- O(1): Constant time (hash map lookup).
+- O(log N): Logarithmic time (binary search on sorted array).
+- O(N): Linear time (linear traversal).
+- O(N log N): Linearithmic time (Merge Sort, QuickSort average case, Heap Sort).
+- O(N^2): Quadratic time (Bubble sort, Insertion sort nested loops).
+Data structures:
+- Binary Search Tree (BST): average O(log N) search/insert, worst-case O(N) when skewed. Balanced trees like AVL or Red-Black guarantee O(log N).
+- Graphs: Represented by adjacency matrix or adjacency list. Traversed using BFS (queue, shortest path in unweighted graph) or DFS (stack/recursion).`,
+                uploadedAt: new Date(),
+                pageCount: 1,
+              });
+              setSuccessMessage('Loaded Computer Science sample notes! Try taking a quiz or generating a mind map.');
+            }}
+            className="px-3 py-1.5 rounded-lg text-xs font-medium glass-card border border-indigo-500/30 text-indigo-200 hover:bg-indigo-500/20 hover:text-white transition-all focus-visible:ring-2 focus-visible:ring-indigo-500"
+          >
+            Load CS Algorithms (Sample)
+          </button>
+        </div>
       </div>
 
       {/* Error & Success Alerts */}

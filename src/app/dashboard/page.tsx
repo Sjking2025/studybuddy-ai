@@ -1,17 +1,51 @@
 'use client';
 
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { useStudyStore } from '@/lib/store';
 import Sidebar from '@/components/dashboard/Sidebar';
 import UploadZone from '@/components/dashboard/UploadZone';
-import ChatInterface from '@/components/dashboard/ChatInterface';
-import FlashCards from '@/components/dashboard/FlashCards';
-import QuizMode from '@/components/dashboard/QuizMode';
-import MindMap from '@/components/dashboard/MindMap';
-import StudyPlan from '@/components/dashboard/StudyPlan';
-import ProgressDashboard from '@/components/dashboard/ProgressDashboard';
-import { Menu, X, Brain } from 'lucide-react';
+import { Menu, X, Brain, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+
+// Loading Skeleton for dynamically imported modules
+function ComponentFallback({ label }: { label: string }) {
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      className="w-full h-96 flex flex-col items-center justify-center glass-card border border-purple-500/20"
+    >
+      <Loader2 className="w-8 h-8 text-purple-400 animate-spin mb-3" />
+      <span className="text-slate-400 text-sm font-medium">Loading {label}...</span>
+    </div>
+  );
+}
+
+// Optimized dynamic imports for bundle splitting & efficiency
+const ChatInterface = dynamic(() => import('@/components/dashboard/ChatInterface'), {
+  loading: () => <ComponentFallback label="AI Chat Tutor" />,
+});
+
+const FlashCards = dynamic(() => import('@/components/dashboard/FlashCards'), {
+  loading: () => <ComponentFallback label="Flashcards" />,
+});
+
+const QuizMode = dynamic(() => import('@/components/dashboard/QuizMode'), {
+  loading: () => <ComponentFallback label="Practice Quiz" />,
+});
+
+const MindMap = dynamic(() => import('@/components/dashboard/MindMap'), {
+  loading: () => <ComponentFallback label="Mind Map" />,
+});
+
+const StudyPlan = dynamic(() => import('@/components/dashboard/StudyPlan'), {
+  loading: () => <ComponentFallback label="Study Plan" />,
+});
+
+const ProgressDashboard = dynamic(() => import('@/components/dashboard/ProgressDashboard'), {
+  loading: () => <ComponentFallback label="Analytics Dashboard" />,
+});
 
 export default function DashboardPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -50,64 +84,59 @@ export default function DashboardPage() {
             StudyBuddy AI
           </span>
         </div>
+
         <button
-          onClick={() => setMobileMenuOpen((prev) => !prev)}
-          className="flex h-10 w-10 items-center justify-center rounded-xl border border-indigo-500/20 bg-slate-900/60 text-slate-300 transition-colors hover:bg-slate-800/80 hover:text-white focus:outline-none focus:ring-2 focus:ring-purple-500/40"
-          aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           type="button"
+          aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={mobileMenuOpen}
+          className="rounded-lg p-2 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
         >
-          {mobileMenuOpen ? (
-            <X className="h-5 w-5 text-purple-400" />
-          ) : (
-            <Menu className="h-5 w-5 text-purple-400" />
-          )}
+          {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </header>
 
-      {/* Mobile Overlay Sidebar */}
+      {/* Mobile Sidebar Overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <>
-            {/* Backdrop */}
+          <div className="lg:hidden fixed inset-0 z-40">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              aria-hidden="true"
             />
-
-            {/* Slide-over Drawer */}
             <motion.div
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 240 }}
-              className="fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw] bg-[#0a0a1a] shadow-2xl border-r border-indigo-900/30 lg:hidden flex flex-col"
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="absolute left-0 top-0 bottom-0 z-50 w-64 shadow-2xl"
             >
               <Sidebar onNavigate={() => setMobileMenuOpen(false)} />
             </motion.div>
-          </>
+          </div>
         )}
       </AnimatePresence>
 
-      {/* Desktop Static Sidebar */}
-      <aside className="hidden lg:flex lg:w-64 lg:shrink-0 lg:flex-col border-r border-indigo-950/40 bg-[#0a0a1a]/70 backdrop-blur-xl min-h-screen sticky top-0">
-        <Sidebar onNavigate={() => {}} />
-      </aside>
+      {/* Desktop Persistent Sidebar */}
+      <div className="hidden lg:block shrink-0">
+        <Sidebar />
+      </div>
 
-      {/* Main Content Area */}
-      <main className="flex-1 p-4 lg:p-8 animated-gradient overflow-y-auto min-h-[calc(100vh-65px)] lg:min-h-screen">
-        <div className="mx-auto max-w-7xl">
+      {/* Main Workspace Dynamic Area */}
+      <main className="flex-1 overflow-x-hidden min-w-0" role="main">
+        <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeView}
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
+              exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.2 }}
-              className="w-full"
             >
               {renderView()}
             </motion.div>

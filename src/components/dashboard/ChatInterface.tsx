@@ -130,7 +130,7 @@ export default function ChatInterface() {
     }
 
     // 1. Prepare and append User message
-    const userMessageId = `user-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`;
+    const userMessageId = `user-${crypto.randomUUID()}`;
     const userMessage: ChatMessage = {
       id: userMessageId,
       role: 'user',
@@ -140,7 +140,7 @@ export default function ChatInterface() {
     addChatMessage(userMessage);
 
     // 2. Prepare Assistant placeholder message
-    const assistantMessageId = `assistant-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`;
+    const assistantMessageId = `assistant-${crypto.randomUUID()}`;
     const assistantPlaceholder: ChatMessage = {
       id: assistantMessageId,
       role: 'assistant',
