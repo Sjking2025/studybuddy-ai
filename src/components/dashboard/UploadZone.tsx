@@ -160,7 +160,6 @@ export default function UploadZone() {
         setStatusMessage(null);
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [addDocument]
   );
 
